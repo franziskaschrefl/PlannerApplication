@@ -26,10 +26,12 @@ SET default_table_access_method = heap;
 
 CREATE TABLE public.todo_items (
     id integer NOT NULL,
-    date date NOT NULL,
     title character varying(255) NOT NULL,
-    type character varying(50) NOT NULL,
-    status character(1) NOT NULL,
+    begindate date DEFAULT CURRENT_DATE NOT NULL,
+    enddate date,
+    repeat character varying(50) DEFAULT 'never'::character varying NOT NULL,
+    type character varying(50) DEFAULT 'office'::character varying NOT NULL,
+    status character(1) DEFAULT 'N'::bpchar NOT NULL,
     username character varying(100) NOT NULL
 );
 
@@ -69,10 +71,13 @@ ALTER TABLE ONLY public.todo_items ALTER COLUMN id SET DEFAULT nextval('public.t
 -- Data for Name: todo_items; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.todo_items (id, date, title, type, status, username) FROM stdin;
-1	2024-08-13	a chore1	office	D	fran
-2	2024-08-13	a chore2	home	N	fran
-3	2024-08-13	a chore3	office	N	fran
+COPY public.todo_items (id, title, begindate, enddate, repeat, type, status, username) FROM stdin;
+3	clean kitchen	2024-08-15	2024-08-29	weekly	home	N	fran
+2	dishes	2024-08-15	2024-08-30	daily	home	D	fran
+5	pretend to work	2024-08-15	\N	never	office	D	fran
+6	watch paint dry	2024-08-15	\N	never	office	N	fran
+7	go for a coffee as break from boredom	2024-08-15	\N	never	office	D	fran
+4	sleep with open eyes	2024-08-24	\N	never	office	D	fran
 \.
 
 
@@ -80,7 +85,7 @@ COPY public.todo_items (id, date, title, type, status, username) FROM stdin;
 -- Name: todo_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.todo_items_id_seq', 3, true);
+SELECT pg_catalog.setval('public.todo_items_id_seq', 7, true);
 
 
 --
