@@ -1,5 +1,6 @@
 ﻿@page "/todo"
 @using PlannerCSharp.DataAccessLayer
+
 @inject NavigationManager _navigationManager
 @rendermode InteractiveServer
 
@@ -10,10 +11,19 @@
     <div class="list-group">
         @for(int i = 0; i<office_Count; i++){
             int id = i;
-            <label class="list-group-item">
+            <label class="list-group-item label-pos">
                 <input class="form-check-input me-1"
                        type="checkbox" checked = "@(office_response["status"][@i] == "N" ? false: true)" @onchange="@(e=> UpdateDB(0,id))">
+                <span>
                 @office_response["title"][@i]
+                </span>
+                <div class="trash-button">
+                    <button type="button" class="btn btn-outline-danger" style="border-radius: 100%;" @onclick=@(e=> DeleteEntry(0,id))>
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </div>
+                
+                
             </label>
         }
     </div>
@@ -24,130 +34,30 @@
         @for (int i = 0; i < home_Count; i++)
         {
             int id = i;
-            <label class="list-group-item">
+            <label class="list-group-item ">
                 <input class="form-check-input me-1"
                        type="checkbox" checked="@(home_response["status"][@id] == "N" ? false: true)" id="@id" @onchange="@(e=> UpdateDB(1,id))">
-                @home_response["title"][@id]
+                <span>
+                    @home_response["title"][@id]
+                 </span>
+                <div class="trash-button">
+                    <button type="button" class="btn btn-outline-danger" style="border-radius: 100%;" @onclick="@(e=> DeleteEntry(1,id))">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </div>
+                
             </label>
         }
     </div>
 </div>
 <div class="container_button">
-    <button type="button" class="btn btn-success btn-lg shadow-button" style="border-radius: 100%;" @onclick="ShowModal">
+    <button type="button" class="btn btn-success btn-lg shadow-button" style="border-radius: 100%;" @onclick="newTaskWindow.ShowModal">
         <i class="bi bi-plus-lg" style="font-size: 30px; font-weight: 900;"></i>
     </button>
 </div>
-<PopUp @ref="modal" OnSave="Save" OnClose="Reset">
-    <div class="new-task-header-box">
-        <h3 style="text-align: center;">New Task</h3>
-    </div>
-    <form class="form-field" @onsubmit="Validate">
-        <div class="mb-3 row">
-            <label for="inputTitle" class="col-sm-2 col-form-label">Title</label>
-            @if (isValid)
-            {
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputTitle" @bind-value="title" placeholder="Enter Title...">
-                </div>
-            } else
-            {
-                <div class="col-sm-10">
-                    <input type="text" class="form-control invalid2" id="inputTitle" @bind-value="title" placeholder="Required: Enter Title...">
-                </div>
-            }
-
-        </div>
-        <div class="mb-3 row">
-            <label for="inputBeginDate" class="col-sm-2 col-form-label">Date</label>
-            <div class="col-sm-10">
-                <InputDate @bind-Value="date_of_task" class="form-control" id="inputBeginDate"></InputDate>
-            </div>
-        </div>
-        <div class="mb-3 row">
-            <label for="inputRepeat" class="col-sm-2 col-form-label">Repeat
-            </label>
-            <div class="col-sm-10">
-                <input type="radio" class="btn-check" name="options" id="option1" autocomplete="off" checked @onchange="@(() => SetRepeat("never"))">
-                <label class="btn btn-secondary button-size" for="option1">Never</label>
-
-                <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off" @onchange="@(() => SetRepeat("daily"))">
-                <label class="btn btn-secondary button-size" for="option2">Daily</label>
-
-                <input type="radio" class="btn-check" name="options" id="option3" autocomplete="off" @onchange="@(() => SetRepeat("weekly"))">
-                <label class="btn btn-secondary button-size" for="option3">Weekly</label>
-
-                <input type="radio" class="btn-check" name="options" id="option4" autocomplete="off" @onchange="@(() => SetRepeat("monthly"))">
-                <label class="btn btn-secondary button-size" for="option4">Monthly</label>
-
-                <input type="radio" class="btn-check" name="options" id="option5" autocomplete="off" @onchange="@(() => SetRepeat("yearly"))">
-                <label class="btn btn-secondary button-size" for="option5">Yearly</label>
-            </div>
-        </div>
-
-        <div class="mb-3 row">
-            <label for="inputEnd" class="col-sm-2 col-form-label">
-                End
-            </label>
-            <div class="col-sm-10 change-centering">
-                @if (repeat == "never")
-                {
-                    <input type="radio" disabled class="btn-check" name="options2" id="optionno" autocomplete="off" checked @onchange="@(() => SetEnd(false))">
-                    <label class="btn btn-secondary button-size" for="optionno">No</label>
-
-                    <input type="radio" disabled class="btn-check" name="options2" id="optionyes" autocomplete="off" @onchange="@(() => SetEnd(true))">
-                    <label class="btn btn-secondary button-size" for="optionyes">Yes</label>
-
-
-                    
-                } else
-                {
-                    <input type="radio" class="btn-check" name="options2" id="optionno" autocomplete="off" checked @onchange="@(() => SetEnd(false))">
-                    <label class="btn btn-secondary button-size" for="optionno">No</label>
-
-                    <input type="radio" class="btn-check" name="options2" id="optionyes" autocomplete="off" @onchange="@(() => SetEnd(true))">
-                    <label class="btn btn-secondary button-size" for="optionyes">Yes</label>
-
-
-                    
-                }
-
-                @if (repeat == "never" || hasEnd == false)
-                {
-                    <InputDate @bind-Value="date_of_task_end" disabled class="form-control datepick" id="inputEndDate"></InputDate>
-                } else
-                {
-                    <InputDate @bind-Value="date_of_task_end" class="form-control datepick" id="inputEndDate"></InputDate>
-                }
-                
-                
-
-                
-            </div>
-        </div>
-
-        <div class="mb-3 row">
-            <label for="inputType" class="col-sm-2 col-form-label">
-                Type
-            </label>
-            <div class="col-sm-10 ">
-                <input type="radio" class="btn-check" name="options3" id="optionoffice" autocomplete="off" checked @onchange="@(() => SetType("office"))">
-                <label class="btn btn-secondary button-size" for="optionoffice">Office</label>
-
-                <input type="radio" class="btn-check" name="options3" id="optionhome" autocomplete="off" @onchange="@(() => SetType("home"))">
-                <label class="btn btn-secondary button-size" for="optionhome">Home</label>
-
-
-                
-
-
-            </div>
-        </div>
-        
-
-    </form>
+<PopUpAdd @ref=newTaskWindow>
     
-
-</PopUp>
+</PopUpAdd>
 
 
 @code {
@@ -157,47 +67,23 @@
     private DatabaseResponse home_response;
     private DateTime date_today = DateTime.Today;
 
+    private PopUpAdd newTaskWindow;
 
-    private PopUp modal;
 
-    public bool isValid { get; set; } = true;
-    public string title;
-    public DateOnly date_of_task = DateOnly.FromDateTime(DateTime.Now);
-    public DateOnly date_of_task_end = DateOnly.FromDateTime(DateTime.Now);
-    public string repeat = "never";
-    public bool hasEnd = false;
-    public string user = "fran";
-    public string type = "office";
+    
 
-    private void SetType(string t)
+    public void DeleteEntry(int type, int index)
     {
-        type = t;
+        DatabaseResponse resp = (type == 0 ? office_response : home_response);
+        int id = int.Parse(resp["id"][index]);
+        DatabaseRequest delete = new DatabaseRequest($"DELETE FROM todo_items WHERE id = { id };");
+        delete.PerformQuery();
+        _navigationManager.NavigateTo(_navigationManager.Uri, true);
+        OnInitialized();
+        Console.WriteLine("DELETE FROM todo_items WHERE id = { id };");
     }
 
-    private void ShowModal()
-    {
-        modal.Show();
-    }
-
-    private void SetRepeat(string rep)
-    {
-
-        repeat = rep;
-        Console.WriteLine(rep);
-    }
-
-    private void Validate()
-    {
-        Console.WriteLine($"Title: {title}, Date: {date_of_task}, Repeat: {repeat}, End:{hasEnd}");
-    }
-
-    private void SetEnd(bool end)
-    {
-
-        hasEnd = end;
-        Console.WriteLine(hasEnd);
-    }
-
+    
     protected override void OnInitialized()
     {
         DatabaseRequest request = new DatabaseRequest("SELECT title, type, id, status FROM ToDo_Items WHERE type = 'office';");
@@ -221,48 +107,6 @@
 
     }
 
-    public void Save()
-    {
-        DatabaseRequest insert_new_task;
-        if (!String.IsNullOrEmpty(title))
-        {
-            if (!hasEnd)
-            {
-
-                insert_new_task = new DatabaseRequest("INSERT INTO todo_items (title, begindate, repeat, type, status, username) "
-                + $"VALUES ('{title}', '{date_of_task.ToString("yyyy-MM-dd")}', '{repeat}', '{type}', 'N', '{user}');");
-            } else
-            {
-                insert_new_task = new DatabaseRequest("INSERT INTO todo_items (title, begindate, enddate, repeat, type, status, username) "
-                + $"VALUES ('{title}', '{date_of_task.ToString("yyyy-MM-dd")}', '{date_of_task_end.ToString("yyyy-MM-dd")}', '{repeat}', '{type}', 'N', '{user}');");
-
-            }
-
-
-
-            DatabaseResponse resp = insert_new_task.PerformQuery();
-            Console.WriteLine($"Title: {title}, Date: {date_of_task}, Repeat: {repeat}, End:{hasEnd}, Date: {date_of_task_end}, Type: {type}");
-
-            modal.Close();
-            _navigationManager.NavigateTo(_navigationManager.Uri, true);
-
-        } else
-        {
-            isValid = false;
-        }
-
-    }
-
-    public void Reset()
-    {
-        title = "";
-        date_of_task = DateOnly.FromDateTime(DateTime.Now);
-        date_of_task_end = DateOnly.FromDateTime(DateTime.Now);
-        repeat = "never";
-        hasEnd = false;
-        isValid = true;
-        type = "office";
-    }
-
+    
     
 }
