@@ -200,3 +200,15 @@ input[type = checkbox]:checked + span {
     padding-top: 2px;
 }
 
+.edit-task-header-box {
+    background: #51087E;
+    color: white; /* White text color for contrast */
+    padding: 10px; /* Padding inside the header */
+    
+}
+
+h3 {
+    margin:0;
+    
+}
+

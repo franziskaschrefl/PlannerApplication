@@ -3,8 +3,8 @@
 
 
 <PopUp @ref="modal" OnSave="Save" OnClose="Reset">
-    <div class="new-task-header-box">
-        <h3 style="text-align: center;">New Task</h3>
+    <div class="edit-task-header-box">
+        <h3 style="text-align: center;">Edit Task</h3>
     </div>
     <form class="form-field" @onsubmit="Validate">
         <div class="mb-3 row">
@@ -34,19 +34,19 @@
                 Repeat
             </label>
             <div class="col-sm-10">
-                <input type="radio" class="btn-check" name="options" id="option1" autocomplete="off" checked @onchange="@(() => SetRepeat("never"))">
+                <input type="radio" class="btn-check" name="options" id="option1" autocomplete="off" checked="@(repeat=="never")" @onchange="@(() => SetRepeat("never"))">
                 <label class="btn btn-secondary button-size" for="option1">Never</label>
 
-                <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off" @onchange="@(() => SetRepeat("daily"))">
+                <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off" checked="@(repeat=="daily")" @onchange="@(() => SetRepeat("daily"))">
                 <label class="btn btn-secondary button-size" for="option2">Daily</label>
 
-                <input type="radio" class="btn-check" name="options" id="option3" autocomplete="off" @onchange="@(() => SetRepeat("weekly"))">
+                <input type="radio" class="btn-check" name="options" id="option3" autocomplete="off" checked="@(repeat=="weekly")" @onchange="@(() => SetRepeat("weekly"))">
                 <label class="btn btn-secondary button-size" for="option3">Weekly</label>
 
-                <input type="radio" class="btn-check" name="options" id="option4" autocomplete="off" @onchange="@(() => SetRepeat("monthly"))">
+                <input type="radio" class="btn-check" name="options" id="option4" autocomplete="off" checked="@(repeat=="monthly")"  @onchange="@(() => SetRepeat("monthly"))">
                 <label class="btn btn-secondary button-size" for="option4">Monthly</label>
 
-                <input type="radio" class="btn-check" name="options" id="option5" autocomplete="off" @onchange="@(() => SetRepeat("yearly"))">
+                <input type="radio" class="btn-check" name="options" id="option5" autocomplete="off" checked="@(repeat=="yearly")" @onchange="@(() => SetRepeat("yearly"))">
                 <label class="btn btn-secondary button-size" for="option5">Yearly</label>
             </div>
         </div>
@@ -58,10 +58,10 @@
             <div class="col-sm-10 change-centering">
                 @if (repeat == "never")
                 {
-                    <input type="radio" disabled class="btn-check" name="options2" id="optionno" autocomplete="off" checked @onchange="@(() => SetEnd(false))">
+                    <input type="radio" disabled class="btn-check" name="options2" id="optionno" autocomplete="off" checked="@(!hasEnd)" @onchange="@(() => SetEnd(false))">
                     <label class="btn btn-secondary button-size" for="optionno">No</label>
 
-                    <input type="radio" disabled class="btn-check" name="options2" id="optionyes" autocomplete="off" @onchange="@(() => SetEnd(true))">
+                    <input type="radio" disabled class="btn-check" name="options2" id="optionyes" autocomplete="off" checked="@(hasEnd)" @onchange="@(() => SetEnd(true))">
                     <label class="btn btn-secondary button-size" for="optionyes">Yes</label>
 
 
@@ -69,10 +69,10 @@
                 }
                 else
                 {
-                    <input type="radio" class="btn-check" name="options2" id="optionno" autocomplete="off" checked @onchange="@(() => SetEnd(false))">
+                    <input type="radio" class="btn-check" name="options2" id="optionno" autocomplete="off" checked="@(!hasEnd)" @onchange="@(() => SetEnd(false))">
                     <label class="btn btn-secondary button-size" for="optionno">No</label>
 
-                    <input type="radio" class="btn-check" name="options2" id="optionyes" autocomplete="off" @onchange="@(() => SetEnd(true))">
+                    <input type="radio" class="btn-check" name="options2" id="optionyes" autocomplete="off" checked="@(hasEnd)"  @onchange="@(() => SetEnd(true))">
                     <label class="btn btn-secondary button-size" for="optionyes">Yes</label>
 
 
@@ -99,10 +99,10 @@
                 Type
             </label>
             <div class="col-sm-10 ">
-                <input type="radio" class="btn-check" name="options3" id="optionoffice" autocomplete="off" checked @onchange="@(() => SetType("office"))">
+                <input type="radio" class="btn-check" name="options3" id="optionoffice" autocomplete="off" checked="@(type == "office")" @onchange="@(() => SetType("office"))">
                 <label class="btn btn-secondary button-size" for="optionoffice">Office</label>
 
-                <input type="radio" class="btn-check" name="options3" id="optionhome" autocomplete="off" @onchange="@(() => SetType("home"))">
+                <input type="radio" class="btn-check" name="options3" id="optionhome" autocomplete="off" checked="@(type == "home")" @onchange="@(() => SetType("home"))">
                 <label class="btn btn-secondary button-size" for="optionhome">Home</label>
 
 
