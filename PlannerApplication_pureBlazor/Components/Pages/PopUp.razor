@@ -1,0 +1,50 @@
+﻿
+
+@if (IsVisible)
+{
+    <div class="modal-overlay">
+        <div class="modal-content">
+            
+            @ChildContent
+             <div class="modal-footer">
+                <button type="button" class="btn btn-danger" @onclick="Close">Close</button>
+
+                <button type="button" class="btn btn-success" @onclick="Save" >Save</button>
+             </div> 
+             
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public Action OnSave { get; set; }
+    [Parameter]
+    public Action OnClose { get; set; }
+
+    public bool IsVisible { get; private set; }
+
+    public void Show()
+    {
+        IsVisible = true;
+        StateHasChanged();
+    }
+
+    public void Close()
+    {
+        IsVisible = false;
+        OnClose?.Invoke();
+        StateHasChanged();
+
+    }
+
+    public void Save()
+    {
+        OnSave?.Invoke();
+        
+    }
+
+}
