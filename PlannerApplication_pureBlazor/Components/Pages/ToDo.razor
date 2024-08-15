@@ -5,12 +5,20 @@
 @rendermode InteractiveServer
 
 <PageTitle>ToDos</PageTitle>
+<AddPopUp @ref=newTaskWindow>
+
+</AddPopUp>
+
+<EditTaskPopUp @ref=editTaskWindow>
+
+</EditTaskPopUp>
 <h1>@(date_today.ToString("yyyy-MM-dd"))'s ToDos</h1>
 <div class="office">
     <h2>Office</h2>
     <div class="list-group">
         @for(int i = 0; i<office_Count; i++){
             int id = i;
+            int index = int.Parse(office_response["id"][id]);
             <label class="list-group-item label-pos">
                 <input class="form-check-input me-1"
                        type="checkbox" checked = "@(office_response["status"][@i] == "N" ? false: true)" @onchange="@(e=> UpdateDB(0,id))">
@@ -18,9 +26,13 @@
                 @office_response["title"][@i]
                 </span>
                 <div class="trash-button">
+                    <button type="button" class="btn btn-outline-primary" style="border-radius: 100%;" @onclick="@(()=>editTaskWindow.ShowModal(index))">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
                     <button type="button" class="btn btn-outline-danger" style="border-radius: 100%;" @onclick=@(e=> DeleteEntry(0,id))>
                         <i class="bi bi-trash"></i>
                     </button>
+                    
                 </div>
                 
                 
@@ -34,6 +46,7 @@
         @for (int i = 0; i < home_Count; i++)
         {
             int id = i;
+            int index = int.Parse(home_response["id"][id]);
             <label class="list-group-item ">
                 <input class="form-check-input me-1"
                        type="checkbox" checked="@(home_response["status"][@id] == "N" ? false: true)" id="@id" @onchange="@(e=> UpdateDB(1,id))">
@@ -41,23 +54,26 @@
                     @home_response["title"][@id]
                  </span>
                 <div class="trash-button">
+                    <button type="button" class="btn btn-outline-primary" style="border-radius: 100%;" @onclick="@(()=>editTaskWindow.ShowModal(index))">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
                     <button type="button" class="btn btn-outline-danger" style="border-radius: 100%;" @onclick="@(e=> DeleteEntry(1,id))">
                         <i class="bi bi-trash"></i>
                     </button>
+                    
                 </div>
+                
                 
             </label>
         }
     </div>
 </div>
 <div class="container_button">
-    <button type="button" class="btn btn-success btn-lg shadow-button" style="border-radius: 100%;" @onclick="newTaskWindow.ShowModal">
+    <button type="button" class="btn btn-success btn-lg shadow-button" style="border-radius: 100%;" @onclick="@(() =>newTaskWindow.ShowModal())">
         <i class="bi bi-plus-lg" style="font-size: 30px; font-weight: 900;"></i>
     </button>
 </div>
-<PopUpAdd @ref=newTaskWindow>
-    
-</PopUpAdd>
+
 
 
 @code {
@@ -67,7 +83,8 @@
     private DatabaseResponse home_response;
     private DateTime date_today = DateTime.Today;
 
-    private PopUpAdd newTaskWindow;
+    private AddPopUp newTaskWindow;
+    private EditTaskPopUp editTaskWindow;
 
 
     
@@ -86,11 +103,11 @@
     
     protected override void OnInitialized()
     {
-        DatabaseRequest request = new DatabaseRequest("SELECT title, type, id, status FROM ToDo_Items WHERE type = 'office';");
+        DatabaseRequest request = new DatabaseRequest("SELECT title, type, id, status FROM ToDo_Items WHERE type = 'office' ORDER BY title ASC;");
         office_response = request.PerformQuery();
         office_Count = office_response.Rows;
 
-        DatabaseRequest request2 = new DatabaseRequest("SELECT title, type, id, status FROM ToDo_Items WHERE type = 'home';");
+        DatabaseRequest request2 = new DatabaseRequest("SELECT title, type, id, status FROM ToDo_Items WHERE type = 'home' ORDER BY title ASC;");
         home_response = request2.PerformQuery();
         home_Count = home_response.Rows;
 

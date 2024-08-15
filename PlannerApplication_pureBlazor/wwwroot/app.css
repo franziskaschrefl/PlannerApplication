@@ -185,6 +185,9 @@ input[type = checkbox]:checked + span {
     top: 50%;
     right: 10px;
     transform: translateY(-50%);
+    display: flex;
+    flex-direction:row;
+    gap:5px;
     
 }
 .trash-button button{
@@ -196,3 +199,4 @@ input[type = checkbox]:checked + span {
     justify-content: center;
     padding-top: 2px;
 }
+
