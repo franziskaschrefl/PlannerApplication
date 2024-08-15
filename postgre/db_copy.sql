@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 16.4
--- Dumped by pg_dump version 16.4
+-- Dumped from database version 14.5
+-- Dumped by pg_dump version 14.5
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -51,7 +51,7 @@ CREATE SEQUENCE public.todo_items_id_seq
     CACHE 1;
 
 
-ALTER SEQUENCE public.todo_items_id_seq OWNER TO postgres;
+ALTER TABLE public.todo_items_id_seq OWNER TO postgres;
 
 --
 -- Name: todo_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -72,12 +72,13 @@ ALTER TABLE ONLY public.todo_items ALTER COLUMN id SET DEFAULT nextval('public.t
 --
 
 COPY public.todo_items (id, title, begindate, enddate, repeat, type, status, username) FROM stdin;
-3	clean kitchen	2024-08-15	2024-08-29	weekly	home	N	fran
-2	dishes	2024-08-15	2024-08-30	daily	home	D	fran
 5	pretend to work	2024-08-15	\N	never	office	D	fran
 6	watch paint dry	2024-08-15	\N	never	office	N	fran
-7	go for a coffee as break from boredom	2024-08-15	\N	never	office	D	fran
-4	sleep with open eyes	2024-08-24	\N	never	office	D	fran
+8	cry	2024-08-15	2024-08-15	weekly	office	N	fran
+9	wait for Lilly	2024-08-15	2024-09-06	daily	home	N	fran
+3	clean kitchen	2024-08-15	2024-08-29	weekly	home	D	fran
+7	go for a coffee as break from boredom	2024-08-15	2024-08-31	monthly	home	N	fran
+2	dishes	2024-08-15	2024-08-30	weekly	home	D	fran
 \.
 
 
@@ -85,7 +86,7 @@ COPY public.todo_items (id, title, begindate, enddate, repeat, type, status, use
 -- Name: todo_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.todo_items_id_seq', 7, true);
+SELECT pg_catalog.setval('public.todo_items_id_seq', 10, true);
 
 
 --
