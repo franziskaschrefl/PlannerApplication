@@ -1,30 +1,37 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">PlannerApplication_pureBlazor</a>
-    </div>
-</div>
+﻿@inject NavigationManager _navigationManager
+@rendermode InteractiveServer
 
-<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <button type="button" class="nav-link " @onclick=@(()=> changeDay(-3))>@(SelectedDay.AddDays(-3))</button>
+    </li>
+    <li class="nav-item">
+        <button type="button" class="nav-link" @onclick=@(()=> changeDay(-2))>@(SelectedDay.AddDays(-2))</button>
+    </li>
+    <li class="nav-item">
+        <button type="button" class="nav-link" @onclick=@(()=> changeDay(-1))>@(SelectedDay.AddDays(-1))</button>
+    </li>
+    <li class="nav-item">
+        <button type="button" class="nav-link active" aria-current="page">@SelectedDay</button>
+    </li>
+    <li class="nav-item">
+        <button type="button" class="nav-link" @onclick="@(()=> changeDay(1))">@(SelectedDay.AddDays(1))</button>
+    </li>
+    <li class="nav-item">
+        <button type="button" class="nav-link" @onclick=@(()=> changeDay(2))>@(SelectedDay.AddDays(2))</button>
+    </li>
+    <li class="nav-item">
+        <button type="button" class="nav-link" @onclick=@(()=> changeDay(3))>@(SelectedDay.AddDays(3))</button>
+    </li>
+</ul>
 
-<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
+@code {
+    public DateOnly SelectedDay = DateOnly.FromDateTime(DateTime.Now);
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="todo">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> ToDo
-            </NavLink>
-        </div>
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="weather">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Weather
-            </NavLink>
-        </div>
-    </nav>
-</div>
-
+    private void changeDay(int days)
+    {
+        SelectedDay = SelectedDay.AddDays(days);
+        Console.WriteLine("click: "+SelectedDay);
+        StateHasChanged();
+    }
+}

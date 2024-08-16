@@ -2,8 +2,18 @@ html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+main {
+    padding-top: 1.1rem;
+    
+}
+
 a, .btn-link {
     color: #006bb7;
+}
+
+.page {
+    display: flex;
+    flex-direction: column ;
 }
 
 .btn-primary {
