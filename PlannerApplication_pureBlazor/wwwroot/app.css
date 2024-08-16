@@ -212,3 +212,16 @@ h3 {
     
 }
 
+.one-row{
+    display: flex;
+    flex-direction: row;
+}
+
+
+.icon-label-wrapper{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    font-size: 20px;
+}
