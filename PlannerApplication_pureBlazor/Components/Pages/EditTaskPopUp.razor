@@ -135,6 +135,8 @@
 
 </PopUp>
 @code {
+    [Parameter]
+    public Action OnDateChange { get; set; }
 
     public bool isValid { get; set; } = true;
     public string title;
@@ -164,9 +166,10 @@
         DatabaseResponse resp = get_task.PerformQuery();
         title = resp["title"][0];
         date_of_task = DateOnly.Parse(resp["begindate"][0]);
-        if (!String.IsNullOrEmpty(resp["enddate"][0]))
+        if ((DateOnly.Parse(resp["enddate"][0])!= DateOnly.MaxValue))
         {
             date_of_task_end = DateOnly.Parse(resp["enddate"][0]);
+            hasEnd= true;
         }
         else
         {
@@ -175,7 +178,7 @@
 
 		repeat = resp["repeat"][0];
 		type = resp["type"][0];
-		hasEnd = !String.IsNullOrEmpty(resp["enddate"][0]);
+		
 	}
     private void SetRepeat(string rep)
     {
@@ -225,7 +228,7 @@
             Console.WriteLine($"Title: {title}, Date: {date_of_task}, Repeat: {repeat}, End:{hasEnd}, Date: {date_of_task_end}, Type: {type}");
 
             modal.Close();
-            _navigationManager.NavigateTo(_navigationManager.Uri, true);
+            OnDateChange?.Invoke();
 
         }
         else

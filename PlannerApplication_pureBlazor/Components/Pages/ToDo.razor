@@ -9,16 +9,16 @@
 
 <div class="page">
 
-    <NavMenu @ref=navBar OnDateChange="Reload"/>
+    <NavMenu @ref=navBar OnDateChange="Reload" />
 
 
     <main>
 
-        <AddPopUp @ref=newTaskWindow>
+        <AddPopUp @ref=newTaskWindow OnDateChange="Reload" SelectedDate="@date_today">
 
         </AddPopUp>
 
-        <EditTaskPopUp @ref=editTaskWindow>
+        <EditTaskPopUp @ref=editTaskWindow OnDateChange="Reload">
 
         </EditTaskPopUp>
         <h1>@(date_today.ToString("yyyy-MM-dd"))'s ToDos</h1>
@@ -29,7 +29,7 @@
 				{
 					if (todo.Type == "office")
 					{
-						<ToDoItem TaskItem="@todo" SelectedDate="@date_today" editTaskWindow="@editTaskWindow" />
+                        <ToDoItem TaskItem="@todo" SelectedDate="@date_today" editTaskWindow="@editTaskWindow" OnDateChange="Reload" />
                     }
                 }
             </div>
@@ -41,7 +41,7 @@
 				{
 					if (todo.Type == "home")
 					{
-						<ToDoItem TaskItem="@todo" SelectedDate="@date_today" editTaskWindow="@editTaskWindow" />
+                        <ToDoItem TaskItem="@todo" SelectedDate="@date_today" editTaskWindow="@editTaskWindow" OnDateChange="Reload" />
                     }
                 }
             </div>

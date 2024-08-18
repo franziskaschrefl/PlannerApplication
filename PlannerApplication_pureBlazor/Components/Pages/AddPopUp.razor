@@ -134,6 +134,12 @@
 
 </PopUp>
 @code {
+    [Parameter]
+    public DateOnly SelectedDate { get; set; }
+
+    [Parameter]
+    public Action OnDateChange { get; set; }
+
     public bool isValid { get; set; } = true;
     public string title;
     public DateOnly date_of_task = DateOnly.FromDateTime(DateTime.Now);
@@ -145,6 +151,12 @@
 
     private PopUp modal;
 
+
+    protected override void OnParametersSet()
+    {
+        date_of_task = SelectedDate;
+        date_of_task_end = SelectedDate;
+    }
     private void SetType(string t)
     {
         type = t;
@@ -205,7 +217,7 @@
             Console.WriteLine($"Title: {title}, Date: {date_of_task}, Repeat: {repeat}, End:{hasEnd}, Date: {date_of_task_end}, Type: {type}");
 
             modal.Close();
-            _navigationManager.NavigateTo(_navigationManager.Uri, true);
+            OnDateChange?.Invoke();
 
         }
         else

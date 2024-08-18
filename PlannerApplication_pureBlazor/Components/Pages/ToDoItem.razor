@@ -27,6 +27,10 @@
 </label>
 
 @code {
+
+    [Parameter]
+    public Action OnDateChange { get; set; }
+
     [Parameter]
     public ToDoTask TaskItem { get; set; }
 
@@ -37,7 +41,7 @@
     public EditTaskPopUp editTaskWindow { get; set; }
 
     public bool IsChecked()
-	{
+    {
         DatabaseRequest select = new DatabaseRequest($"SELECT * FROM item_status WHERE id = '{TaskItem.Id}' AND date = '{SelectedDate.ToString("yyyy-MM-dd")}';");
         DatabaseResponse resp = select.PerformQuery();
         if (resp.Rows == 0){
@@ -45,14 +49,14 @@
         } else {
             return true;
         }
-	}
+    }
 
     public void DeleteEntry()
     {
-        
+
         DatabaseRequest delete = new DatabaseRequest($"DELETE FROM todo_items WHERE id = '{TaskItem.Id}';");
         delete.PerformQuery();
-        StateHasChanged();
+        OnDateChange?.Invoke();
         // _navigationManager.NavigateTo(_navigationManager.Uri, true);
         
     }
