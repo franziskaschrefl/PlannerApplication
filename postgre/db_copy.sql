@@ -92,11 +92,10 @@ COPY public.item_status (id, date) FROM stdin;
 
 COPY public.todo_items (id, title, begindate, enddate, repeat, type, username) FROM stdin;
 7	go for a coffee as break from boredom	2024-08-15	2024-08-31	monthly	home	fran
-6	watch paint dry	2024-08-15	\N	never	office	fran
-5	pretend to work	2024-08-15	\N	never	office	fran
 8	cry	2024-08-15	2024-08-15	weekly	office	fran
 11	cry because Lilly is not there	2024-08-17	2024-08-31	weekly	office	fran
-14	miss mönchy until he gets home	2024-08-20	9999-12-31	monthly	home	fran
+16	miss mönchy until he gets home	2024-08-18	9999-12-31	daily	office	Samuel
+17	miss lilly	2024-08-20	2024-09-06	daily	home	Samuel
 \.
 
 
@@ -104,7 +103,7 @@ COPY public.todo_items (id, title, begindate, enddate, repeat, type, username) F
 -- Name: todo_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.todo_items_id_seq', 14, true);
+SELECT pg_catalog.setval('public.todo_items_id_seq', 17, true);
 
 
 --

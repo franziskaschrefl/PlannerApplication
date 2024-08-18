@@ -144,7 +144,7 @@
     public DateOnly? date_of_task_end = DateOnly.FromDateTime(DateTime.Now);
     public string repeat = "never";
     public bool hasEnd = false;
-    public string user = "fran";
+    public string user = Environment.UserName;
     public string type = "office";
     private int id;
     private PopUp modal;

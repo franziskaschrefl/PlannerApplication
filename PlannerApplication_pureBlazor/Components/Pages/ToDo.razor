@@ -71,7 +71,7 @@
     {
         todos.Clear();
         date_today = navBar.SelectedDay;
-        DatabaseRequest request = new DatabaseRequest($"SELECT * FROM ToDo_Items WHERE enddate >= '{date_today.ToString("yyyy-MM-dd")}' AND begindate <= '{date_today.ToString("yyyy-MM-dd")}' ORDER BY title ASC; ");
+        DatabaseRequest request = new DatabaseRequest($"SELECT * FROM ToDo_Items WHERE username = '{Environment.UserName}' AND enddate >= '{date_today.ToString("yyyy-MM-dd")}' AND begindate <= '{date_today.ToString("yyyy-MM-dd")}' ORDER BY title ASC; ");
         getRelevantToDos(request.PerformQuery());
         StateHasChanged();
     }
