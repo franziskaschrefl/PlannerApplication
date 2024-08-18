@@ -1,0 +1,76 @@
+﻿@using PlannerCSharp.DataAccessLayer
+
+<label class="list-group-item ">
+    @if(IsChecked())
+    {
+        <input class="form-check-input me-1" type="checkbox" checked id="@TaskItem.Id" @onchange="@(()=> UpdateDB(true))">
+    }
+    else
+	{
+		<input class="form-check-input me-1" type="checkbox" id="@TaskItem.Id" @onchange="@(()=> UpdateDB(false))">
+	}
+
+    <span>
+        @TaskItem.Title
+    </span>
+    <div class="trash-button">
+        <button type="button" class="btn btn-outline-primary" style="border-radius: 100%;" @onclick="@(()=>editTaskWindow.ShowModal(TaskItem.Id))">
+            <i class="bi bi-pencil-square"></i>
+        </button>
+        <button type="button" class="btn btn-outline-danger" style="border-radius: 100%;" @onclick="@(()=> DeleteEntry())">
+            <i class="bi bi-trash"></i>
+        </button>
+
+    </div>
+
+
+</label>
+
+@code {
+    [Parameter]
+    public ToDoTask TaskItem { get; set; }
+
+    [Parameter]
+    public DateOnly SelectedDate { get; set; }
+
+    [Parameter]
+    public EditTaskPopUp editTaskWindow { get; set; }
+
+    public bool IsChecked()
+	{
+        DatabaseRequest select = new DatabaseRequest($"SELECT * FROM item_status WHERE id = '{TaskItem.Id}' AND date = '{SelectedDate.ToString("yyyy-MM-dd")}';");
+        DatabaseResponse resp = select.PerformQuery();
+        if (resp.Rows == 0){
+            return false;
+        } else {
+            return true;
+        }
+	}
+
+    public void DeleteEntry()
+    {
+        
+        DatabaseRequest delete = new DatabaseRequest($"DELETE FROM todo_items WHERE id = '{TaskItem.Id}';");
+        delete.PerformQuery();
+        StateHasChanged();
+        // _navigationManager.NavigateTo(_navigationManager.Uri, true);
+        
+    }
+
+    public void UpdateDB(bool isChecked)
+    {
+        if (isChecked){
+            DatabaseRequest delete = new DatabaseRequest($"DELETE FROM item_status WHERE id = '{TaskItem.Id}' AND date = '{SelectedDate.ToString("yyyy-MM-dd")}';");
+            delete.PerformQuery();
+            Console.WriteLine($"DELETE FROM item_status WHERE id = {TaskItem.Id} AND date = {SelectedDate.ToString("yyyy-MM-dd")};");
+        } else {
+            DatabaseRequest insert = new DatabaseRequest($"INSERT INTO item_status (id, date) VALUES ('{TaskItem.Id}', '{SelectedDate.ToString("yyyy-MM-dd")}');");
+			insert.PerformQuery();
+            Console.WriteLine($"INSERT INTO item_status (id, date) VALUES ({TaskItem.Id}, {SelectedDate.ToString("yyyy-MM-dd")});");
+		
+		}
+       
+        
+
+    }
+}

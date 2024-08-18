@@ -181,14 +181,21 @@
         {
             if (!hasEnd)
             {
+                if (repeat == "never")
+                {
+                    insert_new_task = new DatabaseRequest("INSERT INTO todo_items (title, begindate, enddate, repeat, type, username) "
+                + $"VALUES ('{title}', '{date_of_task.ToString("yyyy-MM-dd")}', '{date_of_task_end.ToString("yyyy-MM-dd")}', '{repeat}', '{type}', '{user}');");
+                } else
+                {
+                    insert_new_task = new DatabaseRequest("INSERT INTO todo_items (title, begindate, enddate, repeat, type, username) "
+                + $"VALUES ('{title}', '{date_of_task.ToString("yyyy-MM-dd")}', '{DateOnly.MaxValue.ToString("yyyy-MM-dd")}', '{repeat}', '{type}', '{user}');");
+                }
 
-                insert_new_task = new DatabaseRequest("INSERT INTO todo_items (title, begindate, repeat, type, status, username) "
-                + $"VALUES ('{title}', '{date_of_task.ToString("yyyy-MM-dd")}', '{repeat}', '{type}', 'N', '{user}');");
             }
             else
             {
-                insert_new_task = new DatabaseRequest("INSERT INTO todo_items (title, begindate, enddate, repeat, type, status, username) "
-                + $"VALUES ('{title}', '{date_of_task.ToString("yyyy-MM-dd")}', '{date_of_task_end.ToString("yyyy-MM-dd")}', '{repeat}', '{type}', 'N', '{user}');");
+                insert_new_task = new DatabaseRequest("INSERT INTO todo_items (title, begindate, enddate, repeat, type, username) "
+                + $"VALUES ('{title}', '{date_of_task.ToString("yyyy-MM-dd")}', '{date_of_task_end.ToString("yyyy-MM-dd")}', '{repeat}', '{type}', '{user}');");
 
             }
 

@@ -26,12 +26,17 @@
 </ul>
 
 @code {
+    [Parameter]
+    public Action OnDateChange { get; set; }
+
+
     public DateOnly SelectedDay = DateOnly.FromDateTime(DateTime.Now);
 
     private void changeDay(int days)
     {
         SelectedDay = SelectedDay.AddDays(days);
         Console.WriteLine("click: "+SelectedDay);
+        OnDateChange?.Invoke();
         StateHasChanged();
     }
 }

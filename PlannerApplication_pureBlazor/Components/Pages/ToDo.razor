@@ -1,128 +1,149 @@
 ﻿@page "/"
+@using PlannerApplication_pureBlazor.Components.Layout
 @using PlannerCSharp.DataAccessLayer
 
 @inject NavigationManager _navigationManager
 @rendermode InteractiveServer
 
 <PageTitle>ToDos</PageTitle>
-<AddPopUp @ref=newTaskWindow>
 
-</AddPopUp>
+<div class="page">
 
-<EditTaskPopUp @ref=editTaskWindow>
+    <NavMenu @ref=navBar OnDateChange="Reload"/>
 
-</EditTaskPopUp>
-<h1>@(date_today.ToString("yyyy-MM-dd"))'s ToDos</h1>
-<div class="office">
-    <h2>Office</h2>
-    <div class="list-group">
-        @for(int i = 0; i<office_Count; i++){
-            int id = i;
-            int index = int.Parse(office_response["id"][id]);
-            <label class="list-group-item label-pos">
-                <input class="form-check-input me-1"
-                       type="checkbox" checked = "@(office_response["status"][@i] == "N" ? false: true)" @onchange="@(e=> UpdateDB(0,id))">
-                <span>
-                @office_response["title"][@i]
-                </span>
-                <div class="trash-button">
-                    <button type="button" class="btn btn-outline-primary" style="border-radius: 100%;" @onclick="@(()=>editTaskWindow.ShowModal(index))">
-                        <i class="bi bi-pencil-square"></i>
-                    </button>
-                    <button type="button" class="btn btn-outline-danger" style="border-radius: 100%;" @onclick=@(e=> DeleteEntry(0,id))>
-                        <i class="bi bi-trash"></i>
-                    </button>
-                    
-                </div>
-                
-                
-            </label>
-        }
-    </div>
+
+    <main>
+
+        <AddPopUp @ref=newTaskWindow>
+
+        </AddPopUp>
+
+        <EditTaskPopUp @ref=editTaskWindow>
+
+        </EditTaskPopUp>
+        <h1>@(date_today.ToString("yyyy-MM-dd"))'s ToDos</h1>
+        <div class="office">
+            <h2>Office</h2>
+            <div class="list-group">
+                @foreach (var todo in todos)
+				{
+					if (todo.Type == "office")
+					{
+						<ToDoItem TaskItem="@todo" SelectedDate="@date_today" editTaskWindow="@editTaskWindow" />
+                    }
+                }
+            </div>
+        </div>
+        <div class="home">
+            <h2>Home</h2>
+            <div class="list-group">
+                @foreach (var todo in todos)
+				{
+					if (todo.Type == "home")
+					{
+						<ToDoItem TaskItem="@todo" SelectedDate="@date_today" editTaskWindow="@editTaskWindow" />
+                    }
+                }
+            </div>
+        </div>
+        <div class="container_button">
+            <button type="button" class="btn btn-success btn-lg shadow-button" style="border-radius: 100%;" @onclick="@(() =>newTaskWindow.ShowModal())">
+                <i class="bi bi-plus-lg" style="font-size: 30px; font-weight: 900;"></i>
+            </button>
+        </div>
+    </main>
 </div>
-<div class="home">
-    <h2>Home</h2>
-    <div class="list-group">
-        @for (int i = 0; i < home_Count; i++)
-        {
-            int id = i;
-            int index = int.Parse(home_response["id"][id]);
-            <label class="list-group-item ">
-                <input class="form-check-input me-1"
-                       type="checkbox" checked="@(home_response["status"][@id] == "N" ? false: true)" id="@id" @onchange="@(e=> UpdateDB(1,id))">
-                <span>
-                    @home_response["title"][@id]
-                 </span>
-                <div class="trash-button">
-                    <button type="button" class="btn btn-outline-primary" style="border-radius: 100%;" @onclick="@(()=>editTaskWindow.ShowModal(index))">
-                        <i class="bi bi-pencil-square"></i>
-                    </button>
-                    <button type="button" class="btn btn-outline-danger" style="border-radius: 100%;" @onclick="@(e=> DeleteEntry(1,id))">
-                        <i class="bi bi-trash"></i>
-                    </button>
-                    
-                </div>
-                
-                
-            </label>
-        }
-    </div>
-</div>
-<div class="container_button">
-    <button type="button" class="btn btn-success btn-lg shadow-button" style="border-radius: 100%;" @onclick="@(() =>newTaskWindow.ShowModal())">
-        <i class="bi bi-plus-lg" style="font-size: 30px; font-weight: 900;"></i>
-    </button>
-</div>
-
 
 
 @code {
-    private int office_Count = 0;
-    private DatabaseResponse office_response;
-    private int home_Count = 0;
-    private DatabaseResponse home_response;
-    private DateTime date_today = DateTime.Today;
 
+
+
+
+    private DateOnly date_today;
+    private NavMenu navBar;
     private AddPopUp newTaskWindow;
     private EditTaskPopUp editTaskWindow;
+    private List<ToDoTask> todos = new List<ToDoTask>();
 
 
-    
-
-    public void DeleteEntry(int type, int index)
+    public void Reload()
     {
-        DatabaseResponse resp = (type == 0 ? office_response : home_response);
-        int id = int.Parse(resp["id"][index]);
-        DatabaseRequest delete = new DatabaseRequest($"DELETE FROM todo_items WHERE id = { id };");
-        delete.PerformQuery();
-        _navigationManager.NavigateTo(_navigationManager.Uri, true);
-        OnInitialized();
-        Console.WriteLine("DELETE FROM todo_items WHERE id = { id };");
+        todos.Clear();
+        date_today = navBar.SelectedDay;
+        DatabaseRequest request = new DatabaseRequest($"SELECT * FROM ToDo_Items WHERE enddate >= '{date_today.ToString("yyyy-MM-dd")}' AND begindate <= '{date_today.ToString("yyyy-MM-dd")}' ORDER BY title ASC; ");
+        getRelevantToDos(request.PerformQuery());
+        StateHasChanged();
     }
 
-    
-    protected override void OnInitialized()
+
+
+    protected override void OnAfterRender(bool firstRender)
     {
-        DatabaseRequest request = new DatabaseRequest("SELECT title, type, id, status FROM ToDo_Items WHERE type = 'office' ORDER BY title ASC;");
-        office_response = request.PerformQuery();
-        office_Count = office_response.Rows;
-
-        DatabaseRequest request2 = new DatabaseRequest("SELECT title, type, id, status FROM ToDo_Items WHERE type = 'home' ORDER BY title ASC;");
-        home_response = request2.PerformQuery();
-        home_Count = home_response.Rows;
-
+        if (firstRender)
+        {
+            Reload();
+        }
+        
+        
     }
 
-    public void UpdateDB(int type, int index){
-        DatabaseResponse resp = (type == 0 ? office_response : home_response);
-        char c = (resp["status"][index] == "D" ? 'N' : 'D');
-        int id = int.Parse(resp["id"][index]);
-        DatabaseRequest update = new DatabaseRequest($"UPDATE todo_items SET status = '{c}' WHERE id = {id};");
-        update.PerformQuery();
-        Console.WriteLine($"UPDATE ToDo_Items SET status = '{c}' WHERE id = {id};");
-        resp["status"][index] = ""+c;
+    private void getRelevantToDos(DatabaseResponse response)
+    {
 
+        for (int i = 0; i < response.Rows; i++)
+        {
+            ToDoTask t = new ToDoTask();
+            t.Title = response["title"][i];
+            t.EndDate = DateOnly.Parse(response["enddate"][i]);
+            t.BeginDate = DateOnly.Parse(response["begindate"][i]);
+            t.Type = response["type"][i];
+            t.Id = int.Parse(response["id"][i]);
+            t.Repeat = response["repeat"][i];
+            t.Username = response["username"][i];
+
+            if (repeatToday(t.Repeat, t.BeginDate)){
+                todos.Add(t);
+            }
+
+		}
     }
+
+    private bool repeatToday(string repeat, DateOnly date)
+	{
+		if (repeat == "daily")
+		{
+			return true;
+		}
+		else if (repeat == "weekly")
+		{
+			if (date_today.DayOfWeek == date.DayOfWeek)
+			{
+				return true;
+			}
+		}
+		else if (repeat == "monthly")
+		{
+			if (date_today.Day == date.Day)
+			{
+				return true;
+			}
+		}
+		else if (repeat == "yearly")
+		{
+            if (date_today.Day == date.Day && date_today.Month == date.Month)
+			{
+				return true;
+			}
+		} 
+        else if (repeat == "never")
+        {
+            return true;
+        }
+		return false;
+	}
+
+   
 
     
     

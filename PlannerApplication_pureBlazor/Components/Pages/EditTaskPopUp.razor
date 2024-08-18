@@ -160,7 +160,7 @@
     }
 
     private void LoadData(){
-        DatabaseRequest get_task = new DatabaseRequest("SELECT * FROM todo_items WHERE id = " + id + ";");
+        DatabaseRequest get_task = new DatabaseRequest("SELECT * FROM todo_items WHERE id = '" + id + "';");
         DatabaseResponse resp = get_task.PerformQuery();
         title = resp["title"][0];
         date_of_task = DateOnly.Parse(resp["begindate"][0]);
@@ -203,8 +203,15 @@
         {
             if (!hasEnd)
             {
-
-                update_task = new DatabaseRequest($"UPDATE todo_items SET title = '{title}', begindate = '{date_of_task.ToString("yyyy-MM-dd")}', repeat = '{repeat}', type = '{type}' WHERE id = '{id}';");
+                if (repeat == "never")
+                {
+                    update_task = new DatabaseRequest($"UPDATE todo_items SET title = '{title}', begindate = '{date_of_task.ToString("yyyy-MM-dd")}', enddate = '{date_of_task_end?.ToString("yyyy-MM-dd")}', repeat = '{repeat}', type = '{type}' WHERE  id = '{id}';");
+                }
+                else
+                {
+                    update_task = new DatabaseRequest($"UPDATE todo_items SET title = '{title}', begindate = '{date_of_task.ToString("yyyy-MM-dd")}', enddate = '{DateOnly.MaxValue.ToString("yyyy-MM-dd")}', repeat = '{repeat}', type = '{type}' WHERE  id = '{id}';");
+                }
+                
             }
             else
             {

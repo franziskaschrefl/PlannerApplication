@@ -21,6 +21,18 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
+-- Name: item_status; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.item_status (
+    id integer,
+    date date
+);
+
+
+ALTER TABLE public.item_status OWNER TO postgres;
+
+--
 -- Name: todo_items; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -31,7 +43,6 @@ CREATE TABLE public.todo_items (
     enddate date,
     repeat character varying(50) DEFAULT 'never'::character varying NOT NULL,
     type character varying(50) DEFAULT 'office'::character varying NOT NULL,
-    status character(1) DEFAULT 'N'::bpchar NOT NULL,
     username character varying(100) NOT NULL
 );
 
@@ -68,17 +79,23 @@ ALTER TABLE ONLY public.todo_items ALTER COLUMN id SET DEFAULT nextval('public.t
 
 
 --
+-- Data for Name: item_status; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.item_status (id, date) FROM stdin;
+\.
+
+
+--
 -- Data for Name: todo_items; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.todo_items (id, title, begindate, enddate, repeat, type, status, username) FROM stdin;
-5	pretend to work	2024-08-15	\N	never	office	D	fran
-6	watch paint dry	2024-08-15	\N	never	office	N	fran
-8	cry	2024-08-15	2024-08-15	weekly	office	N	fran
-9	wait for Lilly	2024-08-15	2024-09-06	daily	home	N	fran
-3	clean kitchen	2024-08-15	2024-08-29	weekly	home	D	fran
-7	go for a coffee as break from boredom	2024-08-15	2024-08-31	monthly	home	N	fran
-2	dishes	2024-08-15	2024-08-30	weekly	home	D	fran
+COPY public.todo_items (id, title, begindate, enddate, repeat, type, username) FROM stdin;
+7	go for a coffee as break from boredom	2024-08-15	2024-08-31	monthly	home	fran
+6	watch paint dry	2024-08-15	\N	never	office	fran
+5	pretend to work	2024-08-15	\N	never	office	fran
+8	cry	2024-08-15	2024-08-15	weekly	office	fran
+11	cry because Lilly is not there	2024-08-17	2024-08-31	weekly	office	fran
 \.
 
 
@@ -86,7 +103,7 @@ COPY public.todo_items (id, title, begindate, enddate, repeat, type, status, use
 -- Name: todo_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.todo_items_id_seq', 10, true);
+SELECT pg_catalog.setval('public.todo_items_id_seq', 11, true);
 
 
 --
@@ -95,6 +112,14 @@ SELECT pg_catalog.setval('public.todo_items_id_seq', 10, true);
 
 ALTER TABLE ONLY public.todo_items
     ADD CONSTRAINT todo_items_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: item_status item_status_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.item_status
+    ADD CONSTRAINT item_status_id_fkey FOREIGN KEY (id) REFERENCES public.todo_items(id) ON DELETE CASCADE;
 
 
 --
