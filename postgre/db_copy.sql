@@ -96,6 +96,7 @@ COPY public.todo_items (id, title, begindate, enddate, repeat, type, username) F
 5	pretend to work	2024-08-15	\N	never	office	fran
 8	cry	2024-08-15	2024-08-15	weekly	office	fran
 11	cry because Lilly is not there	2024-08-17	2024-08-31	weekly	office	fran
+14	miss mönchy until he gets home	2024-08-20	9999-12-31	monthly	home	fran
 \.
 
 
@@ -103,7 +104,7 @@ COPY public.todo_items (id, title, begindate, enddate, repeat, type, username) F
 -- Name: todo_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.todo_items_id_seq', 11, true);
+SELECT pg_catalog.setval('public.todo_items_id_seq', 14, true);
 
 
 --
