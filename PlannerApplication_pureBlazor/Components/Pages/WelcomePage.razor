@@ -10,10 +10,22 @@
 
     
     <div class="welcome-Page">
-
-        <p class="invisible-animation">@welcomeString</p>
-        <i class="bi bi-cursor-text invisible-animation"></i>
-
+        <div class="welcome-container">
+            <p class="invisible-animation">@welcomeString</p>
+            <i class="bi bi-cursor-text invisible-animation"></i>
+            <div class="visible-container">
+				<p>@displayedText</p>
+                @if(blinking){
+					<i class="bi bi-cursor-text blink"></i>
+				}
+				else{
+			        <i class="bi bi-cursor-text "></i>
+                }
+					
+				
+            </div>
+            
+        </div>
         
     </div>
     
@@ -23,18 +35,21 @@
 
 
 @code {
-    private string welcomeString = "Welcome " + Environment.UserName + "!";
+    private string welcomeString = "Welcome " + Environment.UserName + "! ";
     private string displayedText = string.Empty;
-    
-    // protected override async Task OnInitializedAsync()
-    // {
-    //     foreach (var letter in welcomeString)
-    //     {
-    //         displayedText += letter;
-    //         StateHasChanged(); 
-    //         await Task.Delay(250); 
-    //     }
-    // }
+    private bool blinking = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        foreach (var letter in welcomeString)
+        {
+            displayedText += letter;
+            StateHasChanged(); 
+            await Task.Delay(250); 
+        }
+        blinking = true;
+        StateHasChanged();
+    }
 
     private void changePage(){
         NavManager.NavigateTo("/todo");
