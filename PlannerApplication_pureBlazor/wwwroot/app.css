@@ -7,6 +7,7 @@ html, body {
     position: relative;
     display: flex;
     flex-direction: column !important;
+    
 }
 
 main {
@@ -251,7 +252,7 @@ h3 {
     color: lightgray;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 85vh;
 }
 
 .no-task-design i {
@@ -269,3 +270,47 @@ h2 {
     color: #51087E !important;
     margin-bottom: 15px;
 }
+
+.invisible-Welcome-Page-Button button {
+    width: 100vw;
+    height: 100vh;
+    background: transparent;
+    border: none !important;
+    font-size: 0;
+    position: fixed;
+    z-index:0;
+    
+}
+
+.welcome-Page {
+    position: absolute;
+    display: flex !important;
+    align-content: center;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    z-index: -2;
+    cursor: pointer;
+    display: flex !important;
+    flex-direction: row;
+}
+
+    .welcome-Page i {
+        font-size: 70px;
+        margin-right: unset;
+        margin-left: unset;
+    }
+
+
+    .welcome-Page p {
+        font-size: 50px;
+        margin: 8px;
+        margin-right: unset;
+        margin-left: 8px;
+    }
+
+    .invisible-animation {
+        color: aqua;
+        z-index: -3 !important;
+    }

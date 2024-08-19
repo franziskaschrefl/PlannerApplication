@@ -1,0 +1,42 @@
+﻿@page "/"
+@inject NavigationManager NavManager
+@rendermode InteractiveServer
+
+<PageTitle>Welcome Page</PageTitle>
+
+    <div class="invisible-Welcome-Page-Button">
+        <button type="button"  @onclick="@(() => changePage())">load Todo</button>
+    </div>
+
+    
+    <div class="welcome-Page">
+
+        <p class="invisible-animation">@welcomeString</p>
+        <i class="bi bi-cursor-text invisible-animation"></i>
+
+        
+    </div>
+    
+    
+
+
+
+
+@code {
+    private string welcomeString = "Welcome " + Environment.UserName + "!";
+    private string displayedText = string.Empty;
+    
+    // protected override async Task OnInitializedAsync()
+    // {
+    //     foreach (var letter in welcomeString)
+    //     {
+    //         displayedText += letter;
+    //         StateHasChanged(); 
+    //         await Task.Delay(250); 
+    //     }
+    // }
+
+    private void changePage(){
+        NavManager.NavigateTo("/todo");
+    }
+}
