@@ -10,8 +10,12 @@ html, body {
 }
 
 main {
+    
     flex: 1;
-    padding: 20px;
+    padding: 25px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    
 }
 
 a, .btn-link {
@@ -89,7 +93,8 @@ h1:focus {
 .office {
     display: flex;
     flex-direction: column;
-   
+    padding-bottom: 40px;
+    min-height: 30vh;
 }
 
 .modal-overlay {
@@ -238,4 +243,29 @@ h3 {
     align-items: center;
     gap: 15px;
     font-size: 20px;
+}
+
+.no-task-design {
+    display: flex !important;
+    flex-direction: column;
+    color: lightgray;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.no-task-design i {
+    font-size: 900%;
+}
+
+.no-task-design p {
+    font-size: 150%;
+}
+
+.list-group-item span {
+    margin-left: 10px;
+}
+h2 {
+    color: #51087E !important;
+    margin-bottom: 15px;
 }
