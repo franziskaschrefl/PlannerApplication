@@ -3,11 +3,17 @@
 
 <PageTitle>Task Display</PageTitle>
 <div class="parent-outline">
-    <input type="checkbox" id="side-bar-check">
+    <input type="checkbox" id="side-bar-check" @onchange="@(()=> SetChecked())">
     <div class="page-backgroud">
         
         
         <i class="bi bi-list"></i>
+
+        @if (isChecked)
+        {
+            Thread.Sleep(100);
+            <p>hello</p>
+        }
     </div>
     <div class="outline-todo">
         <ToDo />
@@ -16,5 +22,10 @@
 
 
 @code {
+    private bool isChecked = false;
 
+    private void SetChecked (){
+        isChecked = !isChecked;
+        Console.WriteLine(isChecked);
+    }
 }
