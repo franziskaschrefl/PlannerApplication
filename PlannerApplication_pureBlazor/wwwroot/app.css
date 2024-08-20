@@ -278,7 +278,7 @@ h2 {
     border: none !important;
     font-size: 0;
     position: fixed;
-    z-index:0;
+    z-index: 0;
     
 }
 
@@ -292,12 +292,13 @@ h2 {
     align-items: center;
     z-index: -2;
     cursor: pointer;
+    
     display: flex !important;
     flex-direction: row;
 }
 
     .welcome-Page i {
-        font-size: 70px;
+        font-size: 80px;
         margin-right: unset;
         margin-left: unset;
         transform: translateX(-30px);
@@ -305,7 +306,7 @@ h2 {
 
 
     .welcome-Page p {
-        font-size: 50px;
+        font-size: 60px;
         font-family: 'Times New Roman';
         display: flex;
         align-items: center;
@@ -319,20 +320,23 @@ h2 {
         
     }
 
-.welcome-container{
+.welcome-container {
     display: flex;
-    flex-direction: row;
-    position: relative;
+    color: white;
     
+    flex-direction: row;
+    transform: translateY(-230%);
+    position: relative;
 }
 .visible-container {
     position: absolute;
+    text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
     display: flex;
     flex-direction: row;
     top: 0;
     right: 0;
     width: 100%;
-    height : 100%;
+    height: 100%;
 }
 
 @keyframes blink {
@@ -343,4 +347,39 @@ h2 {
 
 .blink {
     animation: blink 1.5s step-start 0s infinite;
+}
+
+img {
+    position: absolute;
+    display: flex !important;
+    align-content: center;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    z-index: -10;
+    cursor: pointer;
+    display: flex !important;
+    flex-direction: row;
+}
+
+.click-anywhere{
+    font-size: 30px;
+    transform: translateY(+500%);
+    color: gray;
+    text-shadow: unset !important;
+
+}
+
+.for-centering {
+    position: absolute;
+    
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-direction: row;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
 }

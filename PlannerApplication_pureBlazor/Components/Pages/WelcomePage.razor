@@ -7,7 +7,8 @@
     <div class="invisible-Welcome-Page-Button">
         <button type="button"  @onclick="@(() => changePage())">load Todo</button>
     </div>
-
+    <link
+<img src="img/lakeside-pink-sky-sunset-minimal-art-gradient-background-2560x1080-4584.png" alt="background-image" />
     
     <div class="welcome-Page">
         <div class="welcome-container">
@@ -17,6 +18,11 @@
 				<p>@displayedText</p>
                 @if(blinking){
 					<i class="bi bi-cursor-text blink"></i>
+                    <div class="for-centering">
+                        <div class="click-anywhere"> 
+                            Click Anywhere to Continue.
+                        </div>
+                    </div>
 				}
 				else{
 			        <i class="bi bi-cursor-text "></i>
