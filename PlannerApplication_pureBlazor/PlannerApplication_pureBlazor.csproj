@@ -15,20 +15,5 @@
 		<Watch Include="**\*.razor" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Content Remove="Components\Pages\Outline.razor" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Watch Remove="Components\Pages\Outline.razor" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Include="Components\Pages\Outline.razor" />
-	</ItemGroup>
-
-
-
-	
 
 </Project>
