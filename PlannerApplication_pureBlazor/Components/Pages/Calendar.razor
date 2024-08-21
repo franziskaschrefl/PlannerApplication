@@ -18,15 +18,16 @@
         }
         @for (int i = 1; i <= monthEnd.Day; i++)
         {
+            int day = i;
             if (DateTime.Now.Year == DateTime.Now.Year + yearsAway && DateTime.Now.Month == monthsAway && DateTime.Now.Day == i)
             {
-                <div class="div-form div-today">@i</div>
+                <div class="div-form div-today" @onclick="@(()=>changeDate(day))"><p>@i</p></div>
             }
             else if (DTObject.SelectedDate.Year == DTObject.SelectedDate.Year + yearsAway && DTObject.SelectedDate.Month == monthsAway && DTObject.SelectedDate.Day == i)
             {
-                <div class="div-form div-selected">@i</div>
+                <div class="div-form div-selected"><p>@i</p></div>
             } else {
-				<div class="div-form">@i</div>
+                <div class="div-form" @onclick="@(()=>changeDate(day))"><p>@i</p></div>
 			}
             
         }
@@ -50,6 +51,12 @@
         CreateMonth();
         DTObject.OnDateChange += Reload;
     }
+
+    void changeDate(int day)
+	{
+		DTObject.SelectedDate = new DateOnly(DTObject.SelectedDate.Year + yearsAway, monthsAway, day);
+		StateHasChanged();
+	}
 
 
     void Reload()

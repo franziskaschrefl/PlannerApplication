@@ -1,0 +1,14 @@
+﻿.clock-timer p {
+    margin: 0;
+    font-size: 30px;
+    color: white;
+    margin-top: 5px;
+    font-family: system-ui;
+}
+
+.clock-timer {
+    position: absolute;
+    left: 10px;
+    height: 50px;
+    background-color: #51087E;
+}
