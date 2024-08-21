@@ -17,6 +17,7 @@
     {
         monthsAway = DateTime.Now.Month;
         CreateMonth();
+        
 
     }
 
@@ -59,18 +60,31 @@
 
 
 }
+<div class="calendar-outline">
+    <div class="calendar-header">
+        <button @onclick="() => {monthsAway--; CreateMonth(); }"><i class="bi bi-caret-left-fill"></i></button>
+        <h2>@monthName @yearName</h2>
+        <button @onclick="() => {monthsAway++; CreateMonth(); }"><i class="bi bi-caret-right-fill"></i></button>
+    </div>  
+    <section class="table-form">
+        @for (int i = 0; i < numDummyColumn; i++)
+        {
+            <div></div>
+        }
+        @for (int i = 1; i <= monthEnd.Day; i++)
+        {
+            if (DateTime.Now.Year == DateTime.Now.Year + yearsAway && DateTime.Now.Month == monthsAway && DateTime.Now.Day == i)
+            {
+                <div class="div-form div-today">@i</div>
+            }
+            else if (SelectedDate.Year == SelectedDate.Year + yearsAway && SelectedDate.Month == monthsAway && SelectedDate.Day == i)
+            {
+                <div class="div-form div-selected">@i</div>
+            }
+            <div class="div-form">@i</div>
+        }
+    </section>
+ </div>
 
-<button @onclick="() => {monthsAway--; CreateMonth(); }">Previous</button>
 
-<h1>@monthName @yearName</h1>
-<button @onclick="() => {monthsAway++; CreateMonth(); }">Next</button>
-<section class="table-form">
-    @for (int i = 0; i < numDummyColumn; i++)
-    {
-        <div ></div>
-    }
-    @for (int i = 1; i <= monthEnd.Day; i++)
-    {
-        <div class="div-form">@i</div>
-    }
-</section>
+
