@@ -473,9 +473,10 @@ img {
 
 
 .calendar-outline {
-    
+    margin-right: 7px;
+    top: 50px;
     position: absolute;
-    width: 240px;
+    width: 240px !important;
     height: 245px;
     background-color: #51087E;
     color: white;
