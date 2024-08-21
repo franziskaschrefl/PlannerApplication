@@ -1,0 +1,76 @@
+﻿
+@rendermode InteractiveServer
+
+@code {
+    [Parameter]
+    public DateOnly SelectedDate { get; set; }
+
+
+    DateTime monthEnd;
+    int numDummyColumn = 0;
+    private string monthName = "";
+    int monthsAway = 0;
+    int yearsAway = 0;
+    int yearName = 0;
+    protected override void OnInitialized()
+
+    {
+        monthsAway = DateTime.Now.Month;
+        CreateMonth();
+
+    }
+
+    void CreateMonth(){
+
+        if (monthsAway <= 0)
+        {
+            monthsAway = 12;
+            yearsAway--;
+        }
+
+        if (monthsAway >= 13)
+        {
+            monthsAway = 1;
+            yearsAway++;
+        }
+
+
+        DateTime monthStart = new DateTime(DateTime.Now.Year + yearsAway, monthsAway, 1);
+        monthEnd = monthStart.AddMonths(1).AddDays(-1);
+        monthName = monthStart.Month switch
+        {
+            1 => "January",
+            2 => "Febuary",
+            3 => "March",
+            4 => "April",
+            5 => "May",
+            6 => "June",
+            7 => "July",
+            8 => "August",
+            9 => "September",
+            10 => "October",
+            11 => "November",
+            12 => "December",
+            _ => ""
+        };
+        yearName = monthStart.Year;
+        numDummyColumn = (int)monthStart.DayOfWeek;
+    }
+
+
+}
+
+<button @onclick="() => {monthsAway--; CreateMonth(); }">Previous</button>
+
+<h1>@monthName @yearName</h1>
+<button @onclick="() => {monthsAway++; CreateMonth(); }">Next</button>
+<section class="table-form">
+    @for (int i = 0; i < numDummyColumn; i++)
+    {
+        <div ></div>
+    }
+    @for (int i = 1; i <= monthEnd.Day; i++)
+    {
+        <div class="div-form">@i</div>
+    }
+</section>

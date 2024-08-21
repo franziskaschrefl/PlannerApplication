@@ -15,5 +15,7 @@
 		<Watch Include="**\*.razor" />
 	</ItemGroup>
 
+	
+
 
 </Project>

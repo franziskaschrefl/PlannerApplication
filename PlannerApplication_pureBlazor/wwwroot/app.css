@@ -1,4 +1,4 @@
-html, body {
+﻿html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
@@ -448,5 +448,14 @@ img {
 
 
 
+.div-form {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.table-form {
+    display: grid !important;
+    grid-template-columns: repeat(7, 1fr);
+}
 
 
