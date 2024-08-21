@@ -1,5 +1,5 @@
 ﻿@using PlannerCSharp.DataAccessLayer
-
+@inject DataTransferObject DTObject
 
 
 <PopUp @ref="modal" OnSave="Save" OnClose="Reset">
@@ -134,11 +134,10 @@
 
 </PopUp>
 @code {
-    [Parameter]
-    public DateOnly SelectedDate { get; set; }
+    
 
     [Parameter]
-    public Action OnDateChange { get; set; }
+    public Action OnSave { get; set; }
 
     public bool isValid { get; set; } = true;
     public string title;
@@ -154,8 +153,8 @@
 
     protected override void OnParametersSet()
     {
-        date_of_task = SelectedDate;
-        date_of_task_end = SelectedDate;
+        date_of_task = DTObject.SelectedDate;
+        date_of_task_end = DTObject.SelectedDate;
     }
     private void SetType(string t)
     {
@@ -217,7 +216,7 @@
             Console.WriteLine($"Title: {title}, Date: {date_of_task}, Repeat: {repeat}, End:{hasEnd}, Date: {date_of_task_end}, Type: {type}");
 
             modal.Close();
-            OnDateChange?.Invoke();
+            OnSave?.Invoke();
 
         }
         else

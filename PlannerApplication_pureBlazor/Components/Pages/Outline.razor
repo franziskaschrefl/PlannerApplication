@@ -7,7 +7,7 @@
     <div class="page-backgroud">
         
         
-        <i class="bi bi-list"></i>
+        <i class="bi bi-list page-backgroud-button"></i>
 
         @if (isChecked)
         {
@@ -16,14 +16,14 @@
         }
     </div>
     <div class="outline-todo">
-        <ToDo />
+        <ToDo @ref="tasktodo"/>
     </div>
 </div>
 
 
 @code {
     private bool isChecked = false;
-
+    private ToDo tasktodo;
     private void SetChecked (){
         isChecked = !isChecked;
         Console.WriteLine(isChecked);

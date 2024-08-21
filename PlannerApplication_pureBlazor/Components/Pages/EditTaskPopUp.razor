@@ -136,7 +136,7 @@
 </PopUp>
 @code {
     [Parameter]
-    public Action OnDateChange { get; set; }
+    public Action OnSave { get; set; }
 
     public bool isValid { get; set; } = true;
     public string title;
@@ -228,7 +228,7 @@
             Console.WriteLine($"Title: {title}, Date: {date_of_task}, Repeat: {repeat}, End:{hasEnd}, Date: {date_of_task_end}, Type: {type}");
 
             modal.Close();
-            OnDateChange?.Invoke();
+            OnSave?.Invoke();
 
         }
         else

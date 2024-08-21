@@ -1,42 +1,46 @@
-﻿
+﻿@inject DataTransferObject DTObject
 @rendermode InteractiveServer
 
 <ul class="nav nav-tabs">
     <li class="nav-item">
-        <button type="button" class="nav-link " @onclick=@(()=> changeDay(-3))>@(SelectedDay.AddDays(-3))</button>
+        <button type="button" class="nav-link " @onclick=@(()=> changeDay(-3))>@(DTObject.SelectedDate.AddDays(-3))</button>
     </li>
     <li class="nav-item">
-        <button type="button" class="nav-link" @onclick=@(()=> changeDay(-2))>@(SelectedDay.AddDays(-2))</button>
+        <button type="button" class="nav-link" @onclick=@(()=> changeDay(-2))>@(DTObject.SelectedDate.AddDays(-2))</button>
     </li>
     <li class="nav-item">
-        <button type="button" class="nav-link" @onclick=@(()=> changeDay(-1))>@(SelectedDay.AddDays(-1))</button>
+        <button type="button" class="nav-link" @onclick=@(()=> changeDay(-1))>@(DTObject.SelectedDate.AddDays(-1))</button>
     </li>
     <li class="nav-item">
-        <button type="button" class="nav-link active" aria-current="page">@SelectedDay</button>
+        <button type="button" class="nav-link active" aria-current="page">@DTObject.SelectedDate</button>
     </li>
     <li class="nav-item">
-        <button type="button" class="nav-link" @onclick="@(()=> changeDay(1))">@(SelectedDay.AddDays(1))</button>
+        <button type="button" class="nav-link" @onclick="@(()=> changeDay(1))">@(DTObject.SelectedDate.AddDays(1))</button>
     </li>
     <li class="nav-item">
-        <button type="button" class="nav-link" @onclick=@(()=> changeDay(2))>@(SelectedDay.AddDays(2))</button>
+        <button type="button" class="nav-link" @onclick=@(()=> changeDay(2))>@(DTObject.SelectedDate.AddDays(2))</button>
     </li>
     <li class="nav-item">
-        <button type="button" class="nav-link" @onclick=@(()=> changeDay(3))>@(SelectedDay.AddDays(3))</button>
+        <button type="button" class="nav-link" @onclick=@(()=> changeDay(3))>@(DTObject.SelectedDate.AddDays(3))</button>
     </li>
 </ul>
 
 @code {
-    [Parameter]
-    public Action OnDateChange { get; set; }
 
 
-    public DateOnly SelectedDay = DateOnly.FromDateTime(DateTime.Now);
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        DTObject.OnDateChange += async () => await InvokeAsync(StateHasChanged);
+    }
+
+
 
     private void changeDay(int days)
     {
-        SelectedDay = SelectedDay.AddDays(days);
-        Console.WriteLine("click: "+SelectedDay);
-        OnDateChange?.Invoke();
-        StateHasChanged();
+        DTObject.SelectedDate = DTObject.SelectedDate.AddDays(days);
+        Console.WriteLine("click: " + DTObject.SelectedDate);
+        
+        
     }
 }

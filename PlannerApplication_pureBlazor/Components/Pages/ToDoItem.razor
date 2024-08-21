@@ -1,4 +1,5 @@
 ﻿@using PlannerCSharp.DataAccessLayer
+@inject DataTransferObject DTObject
 
 <label class="list-group-item ">
     @if(IsChecked())
@@ -29,20 +30,19 @@
 @code {
 
     [Parameter]
-    public Action OnDateChange { get; set; }
+    public Action OnDelete { get; set; }
 
     [Parameter]
     public ToDoTask TaskItem { get; set; }
 
-    [Parameter]
-    public DateOnly SelectedDate { get; set; }
+    
 
     [Parameter]
     public EditTaskPopUp editTaskWindow { get; set; }
 
     public bool IsChecked()
     {
-        DatabaseRequest select = new DatabaseRequest($"SELECT * FROM item_status WHERE id = '{TaskItem.Id}' AND date = '{SelectedDate.ToString("yyyy-MM-dd")}';");
+        DatabaseRequest select = new DatabaseRequest($"SELECT * FROM item_status WHERE id = '{TaskItem.Id}' AND date = '{DTObject.SelectedDate.ToString("yyyy-MM-dd")}';");
         DatabaseResponse resp = select.PerformQuery();
         if (resp.Rows == 0){
             return false;
@@ -56,7 +56,7 @@
 
         DatabaseRequest delete = new DatabaseRequest($"DELETE FROM todo_items WHERE id = '{TaskItem.Id}';");
         delete.PerformQuery();
-        OnDateChange?.Invoke();
+        OnDelete?.Invoke();
         // _navigationManager.NavigateTo(_navigationManager.Uri, true);
         
     }
@@ -64,13 +64,13 @@
     public void UpdateDB(bool isChecked)
     {
         if (isChecked){
-            DatabaseRequest delete = new DatabaseRequest($"DELETE FROM item_status WHERE id = '{TaskItem.Id}' AND date = '{SelectedDate.ToString("yyyy-MM-dd")}';");
+            DatabaseRequest delete = new DatabaseRequest($"DELETE FROM item_status WHERE id = '{TaskItem.Id}' AND date = '{DTObject.SelectedDate.ToString("yyyy-MM-dd")}';");
             delete.PerformQuery();
-            Console.WriteLine($"DELETE FROM item_status WHERE id = {TaskItem.Id} AND date = {SelectedDate.ToString("yyyy-MM-dd")};");
+            Console.WriteLine($"DELETE FROM item_status WHERE id = {TaskItem.Id} AND date = {DTObject.SelectedDate.ToString("yyyy-MM-dd")};");
         } else {
-            DatabaseRequest insert = new DatabaseRequest($"INSERT INTO item_status (id, date) VALUES ('{TaskItem.Id}', '{SelectedDate.ToString("yyyy-MM-dd")}');");
+            DatabaseRequest insert = new DatabaseRequest($"INSERT INTO item_status (id, date) VALUES ('{TaskItem.Id}', '{DTObject.SelectedDate.ToString("yyyy-MM-dd")}');");
 			insert.PerformQuery();
-            Console.WriteLine($"INSERT INTO item_status (id, date) VALUES ({TaskItem.Id}, {SelectedDate.ToString("yyyy-MM-dd")});");
+            Console.WriteLine($"INSERT INTO item_status (id, date) VALUES ({TaskItem.Id}, {DTObject.SelectedDate.ToString("yyyy-MM-dd")});");
 		
 		}
        

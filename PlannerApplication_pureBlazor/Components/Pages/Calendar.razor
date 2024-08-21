@@ -1,9 +1,40 @@
-﻿
+﻿@inject DataTransferObject DTObject
 @rendermode InteractiveServer
 
+
+
+
+<div class="calendar-outline">
+    <div class="calendar-header">
+        <button @onclick="() => {monthsAway--; CreateMonth(); }"><i class="bi bi-caret-left-fill"></i></button>
+        <h2>@monthName @yearName</h2>
+        <button @onclick="() => {monthsAway++; CreateMonth(); }"><i class="bi bi-caret-right-fill"></i></button>
+    </div>  
+    <section class="table-form">
+        
+        @for (int i = 0; i < numDummyColumn; i++)
+        {
+            <div></div>
+        }
+        @for (int i = 1; i <= monthEnd.Day; i++)
+        {
+            if (DateTime.Now.Year == DateTime.Now.Year + yearsAway && DateTime.Now.Month == monthsAway && DateTime.Now.Day == i)
+            {
+                <div class="div-form div-today">@i</div>
+            }
+            else if (DTObject.SelectedDate.Year == DTObject.SelectedDate.Year + yearsAway && DTObject.SelectedDate.Month == monthsAway && DTObject.SelectedDate.Day == i)
+            {
+                <div class="div-form div-selected">@i</div>
+            } else {
+				<div class="div-form">@i</div>
+			}
+            
+        }
+    </section>
+ </div>
+
 @code {
-    [Parameter]
-    public DateOnly SelectedDate { get; set; }
+
 
 
     DateTime monthEnd;
@@ -17,11 +48,21 @@
     {
         monthsAway = DateTime.Now.Month;
         CreateMonth();
-        
-
+        DTObject.OnDateChange += Reload;
     }
 
-    void CreateMonth(){
+
+    void Reload()
+	{
+		
+        
+        monthsAway = DTObject.SelectedDate.Month;
+        CreateMonth();
+        StateHasChanged();
+	}
+
+    void CreateMonth()
+    {
 
         if (monthsAway <= 0)
         {
@@ -36,7 +77,7 @@
         }
 
 
-        DateTime monthStart = new DateTime(DateTime.Now.Year + yearsAway, monthsAway, 1);
+        DateTime monthStart = new DateTime(DTObject.SelectedDate.Year + yearsAway, monthsAway, 1);
         monthEnd = monthStart.AddMonths(1).AddDays(-1);
         monthName = monthStart.Month switch
         {
@@ -56,35 +97,18 @@
         };
         yearName = monthStart.Year;
         numDummyColumn = (int)monthStart.DayOfWeek;
+        if (numDummyColumn == 0)
+        {
+            numDummyColumn = 6;
+        }
+        else
+        {
+            numDummyColumn--;
+        }
+
+
     }
 
 
 }
-<div class="calendar-outline">
-    <div class="calendar-header">
-        <button @onclick="() => {monthsAway--; CreateMonth(); }"><i class="bi bi-caret-left-fill"></i></button>
-        <h2>@monthName @yearName</h2>
-        <button @onclick="() => {monthsAway++; CreateMonth(); }"><i class="bi bi-caret-right-fill"></i></button>
-    </div>  
-    <section class="table-form">
-        @for (int i = 0; i < numDummyColumn; i++)
-        {
-            <div></div>
-        }
-        @for (int i = 1; i <= monthEnd.Day; i++)
-        {
-            if (DateTime.Now.Year == DateTime.Now.Year + yearsAway && DateTime.Now.Month == monthsAway && DateTime.Now.Day == i)
-            {
-                <div class="div-form div-today">@i</div>
-            }
-            else if (SelectedDate.Year == SelectedDate.Year + yearsAway && SelectedDate.Month == monthsAway && SelectedDate.Day == i)
-            {
-                <div class="div-form div-selected">@i</div>
-            }
-            <div class="div-form">@i</div>
-        }
-    </section>
- </div>
-
-
 

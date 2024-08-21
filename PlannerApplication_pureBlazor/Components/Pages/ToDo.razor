@@ -1,4 +1,4 @@
-﻿
+﻿@inject DataTransferObject DTObject
 
 @using PlannerApplication_pureBlazor.Components.Layout
 @using PlannerCSharp.DataAccessLayer
@@ -10,16 +10,16 @@
 
 <div class="page">
 
-    <NavMenu @ref=navBar OnDateChange="Reload" />
+    <NavMenu />
 
 
     <main>
 
-        <AddPopUp @ref=newTaskWindow OnDateChange="Reload" SelectedDate="@date_today">
+        <AddPopUp @ref=newTaskWindow OnSave="Reload">
 
         </AddPopUp>
 
-        <EditTaskPopUp @ref=editTaskWindow OnDateChange="Reload">
+        <EditTaskPopUp @ref=editTaskWindow OnSave="Reload">
 
         </EditTaskPopUp>
         
@@ -38,7 +38,7 @@
                         {
                             if (todo.Type == "office")
                             {
-                                <ToDoItem TaskItem="@todo" SelectedDate="@date_today" editTaskWindow="@editTaskWindow" OnDateChange="Reload" />
+                                <ToDoItem TaskItem="@todo" editTaskWindow="@editTaskWindow" OnDelete="Reload" />
                             }
                         }
                     </div>
@@ -53,7 +53,7 @@
                         {
                             if (todo.Type == "home")
                             {
-                                <ToDoItem TaskItem="@todo" SelectedDate="@date_today" editTaskWindow="@editTaskWindow" OnDateChange="Reload" />
+                                <ToDoItem TaskItem="@todo" editTaskWindow="@editTaskWindow" OnDelete="Reload" />
                             }
                         }
                     </div>
@@ -75,8 +75,8 @@
 
 
 
-    private DateOnly date_today;
-    private NavMenu navBar;
+    
+    
     private AddPopUp newTaskWindow;
     private EditTaskPopUp editTaskWindow;
     private List<ToDoTask> todos = new List<ToDoTask>();
@@ -93,8 +93,8 @@
     public void Reload()
     {
         todos.Clear();
-        date_today = navBar.SelectedDay;
-        DatabaseRequest request = new DatabaseRequest($"SELECT * FROM ToDo_Items WHERE username = '{Environment.UserName}' AND enddate >= '{date_today.ToString("yyyy-MM-dd")}' AND begindate <= '{date_today.ToString("yyyy-MM-dd")}' ORDER BY title ASC; ");
+        
+        DatabaseRequest request = new DatabaseRequest($"SELECT * FROM ToDo_Items WHERE username = '{Environment.UserName}' AND enddate >= '{DTObject.SelectedDate.ToString("yyyy-MM-dd")}' AND begindate <= '{DTObject.SelectedDate.ToString("yyyy-MM-dd")}' ORDER BY title ASC; ");
         getRelevantToDos(request.PerformQuery());
         StateHasChanged();
     }
@@ -106,6 +106,7 @@
         if (firstRender)
         {
             Reload();
+            DTObject.OnDateChange += Reload;
         }
         
         
@@ -140,21 +141,21 @@
 		}
 		else if (repeat == "weekly")
 		{
-			if (date_today.DayOfWeek == date.DayOfWeek)
+            if (DTObject.SelectedDate.DayOfWeek == date.DayOfWeek)
 			{
 				return true;
 			}
 		}
 		else if (repeat == "monthly")
 		{
-			if (date_today.Day == date.Day)
+            if (DTObject.SelectedDate.Day == date.Day)
 			{
 				return true;
 			}
 		}
 		else if (repeat == "yearly")
 		{
-            if (date_today.Day == date.Day && date_today.Month == date.Month)
+            if (DTObject.SelectedDate.Day == date.Day && DTObject.SelectedDate.Month == date.Month)
 			{
 				return true;
 			}
