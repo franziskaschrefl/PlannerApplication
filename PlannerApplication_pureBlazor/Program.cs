@@ -1,11 +1,12 @@
 using PlannerApplication_pureBlazor.Components;
+using PlannerApplication_pureBlazor.Components.Pages;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
-
+builder.Services.AddSingleton<DataTransferObject, DataTransferObject>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

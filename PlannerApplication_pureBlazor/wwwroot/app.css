@@ -415,7 +415,7 @@ img {
     height: 100vh;
 }
 
-.page-backgroud i {
+.page-backgroud-button {
     position: absolute;
     color: white;
     font-size: 30px;
@@ -449,7 +449,6 @@ img {
 
 
 .div-form {
-    
     display: flex;
     justify-content: center;
     align-content: center;
@@ -458,7 +457,11 @@ img {
     height: 23px;
     width: 23px;
     padding-bottom: 5px;
-    
+    cursor: pointer;
+}
+
+.div-form p {
+    margin: 0;
 }
 
 .table-form {
@@ -468,6 +471,7 @@ img {
     transform: translateX(-48%);
     position: absolute;
     width: 95%;
+    
     margin-top: 5px;
 }
 
@@ -493,7 +497,7 @@ img {
 .calendar-header {
     margin-top: 5px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -530,3 +534,4 @@ img {
     align-items: center;
     border: 2px solid #dfb2fa;
 }
+
