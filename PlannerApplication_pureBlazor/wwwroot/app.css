@@ -478,7 +478,7 @@ img {
 
 .calendar-outline {
     margin-right: 7px;
-    top: 50px;
+    top: 60px;
     position: absolute;
     width: 240px !important;
     height: 245px;
@@ -533,5 +533,6 @@ img {
     justify-content: center;
     align-items: center;
     border: 2px solid #dfb2fa;
+    
 }
 

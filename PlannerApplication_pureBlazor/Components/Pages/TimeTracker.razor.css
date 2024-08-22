@@ -1,14 +1,25 @@
 ﻿.clock-timer p {
     margin: 0;
-    font-size: 30px;
+    font-size: 27px;
     color: white;
-    margin-top: 5px;
-    font-family: system-ui;
+    margin-top: 4.5px;
+    font-family: Helvetica;
+    letter-spacing: .05rem;
+    font-weight: 80;
+    position: absolute;
+    left: 24%;
 }
 
 .clock-timer {
-    position: absolute;
-    left: 10px;
     height: 50px;
     background-color: #51087E;
+    border-bottom: 1px solid #EAB2FE;
+    width: 100%;
+    height: 48px !important;
+    
+}
+.gradient-text {
+    background: linear-gradient(to right, #B2C9FE, #EAB2FE);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
