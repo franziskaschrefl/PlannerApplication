@@ -1,0 +1,46 @@
+﻿@inject DataTransferObject DTObject
+
+<div class="prog">
+    <p>Year Progression</p>
+</div>
+<div class="progress progress-style">
+
+    <div class="progress-bar change-bar" role="progressbar" style="width: @GetYearDouble%"
+         aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+        @GetYearDouble %
+    </div>
+</div>
+
+@code {
+    
+    private double GetYearDouble
+    {
+        get
+        {
+            DateTime date = new DateTime(DTObject.SelectedDate.Year, DTObject.SelectedDate.Month, DTObject.SelectedDate.Day);
+            int dayOfYear = date.DayOfYear;
+            bool isLeapYear = DateTime.IsLeapYear(date.Year);
+            int totalDays = isLeapYear ? 366 : 365;
+
+            double ret = (double)(dayOfYear) / (totalDays) * 100;
+            return Math.Round(ret, 0);
+        }
+    }
+    
+    protected override void OnInitialized()
+
+    {
+       
+        base.OnInitialized();
+        DTObject.OnDateChange += async () => await InvokeAsync(StateHasChanged);
+    }
+    private double getYearPercent()
+    {
+
+        DateTime date = new DateTime(DTObject.SelectedDate.Year, DTObject.SelectedDate.Month, DTObject.SelectedDate.Day);
+        int dayOfYear = date.DayOfYear;
+        bool isLeapYear = DateTime.IsLeapYear(date.Year);
+        int totalDays = isLeapYear ? 366 : 365;
+        return dayOfYear / totalDays * 100;
+    }
+}

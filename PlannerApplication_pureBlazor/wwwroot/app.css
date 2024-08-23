@@ -538,7 +538,7 @@ img {
 
 .progress-style {
     left: 2%;
-    top: 250px;
+    top: 310px;
     height: 30px;
     width: 96%;
     position: absolute;
@@ -549,5 +549,19 @@ img {
     color: white;
     font-size: 15px;
     font-weight: bold;
+}
+
+.prog {
+    left: 2%;
+    top: 280px;
+    height: 30px;
+    width: 96%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 20px;
+
 }
 

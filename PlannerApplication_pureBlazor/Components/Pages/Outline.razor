@@ -1,6 +1,6 @@
 ﻿@page "/todo"
 @rendermode InteractiveServer
-@inject DataTransferObject DTObject
+
 
 <PageTitle>Task Display</PageTitle>
 <div class="parent-outline">
@@ -15,12 +15,8 @@
             Thread.Sleep(200);
             <TimeTracker></TimeTracker>
             <Calendar></Calendar>
-            <div class="progress progress-style">
-                <div class="progress-bar change-bar" role="progressbar" style="width: @GetYearDouble%"
-                     aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                    @GetYearDouble %
-                </div>
-            </div>
+            <ProgressBar></ProgressBar>
+            
         }
     </div>
     <div class="outline-todo">
@@ -30,32 +26,12 @@
 
 
 @code {
-    private bool isChecked = false;
     private ToDo tasktodo;
-    private double GetYearDouble
-    {
-        get
-        {
-            DateTime date = new DateTime(DTObject.SelectedDate.Year, DTObject.SelectedDate.Month, DTObject.SelectedDate.Day);
-            int dayOfYear = date.DayOfYear;
-            bool isLeapYear = DateTime.IsLeapYear(date.Year);
-            int totalDays = isLeapYear ? 366 : 365;
+    private bool isChecked = false;
 
-            double ret = (double)(dayOfYear) / (totalDays) * 100;
-            return Math.Round(ret, 0);
-        }
-    }
-    private void SetChecked (){
+    private void SetChecked()
+    {
         isChecked = !isChecked;
         Console.WriteLine(isChecked);
-    }
-
-    private double getYearPercent(){
-
-        DateTime date = new DateTime(DTObject.SelectedDate.Year, DTObject.SelectedDate.Month, DTObject.SelectedDate.Day);
-        int dayOfYear = date.DayOfYear;
-        bool isLeapYear = DateTime.IsLeapYear(date.Year);
-        int totalDays = isLeapYear ? 366 : 365;
-        return dayOfYear / totalDays * 100;
     }
 }
