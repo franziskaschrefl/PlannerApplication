@@ -25,10 +25,9 @@ i {
     align-items: center;
     padding-top: 10px;
     padding-bottom: 10px;
-    padding-right: 7px;
+    margin-top: 20px;
     height: 250px;
-    position: relative;
-    top: 365px;
+    
 }
 
 .mood-row {

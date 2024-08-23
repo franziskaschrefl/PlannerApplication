@@ -6,8 +6,7 @@
     font-family: Helvetica;
     letter-spacing: .05rem;
     font-weight: 80;
-    position: absolute;
-    left: 24%;
+    text-align: center;
 }
 
 .clock-timer {

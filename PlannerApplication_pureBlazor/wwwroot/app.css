@@ -403,8 +403,8 @@ img {
     transition: 1s;
     height: 100vh;
     display: flex;
-    justify-content: flex-end;
-    
+    align-items: center;
+    flex-direction: column;
     
 }
 
@@ -420,7 +420,8 @@ img {
     color: white;
     font-size: 30px;
     background-color: #51087E;
-    transform: translateX(-15px);
+    right: 10px;
+    
 }
 
 
@@ -467,9 +468,7 @@ img {
 .table-form {
     display: grid !important;
     grid-template-columns: repeat(7, 1fr);
-    left: 50%;
-    transform: translateX(-48%);
-    position: absolute;
+
     width: 95%;
     
     margin-top: 5px;
@@ -477,9 +476,11 @@ img {
 
 
 .calendar-outline {
-    margin-right: 7px;
-    top: 60px;
-    position: absolute;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
     width: 240px !important;
     height: 245px;
     background-color: #51087E;
@@ -502,8 +503,7 @@ img {
 }
 
 .calendar-header button {
-    position: relative;
-    top: 50%;
+    
     margin-top: 2px;
     color: white;
     background-color: transparent;
@@ -537,11 +537,10 @@ img {
 }
 
 .progress-style {
-    left: 2%;
-    top: 310px;
+    
     height: 30px;
     width: 96%;
-    position: absolute;
+    
 }
 
 .change-bar {
@@ -552,11 +551,9 @@ img {
 }
 
 .prog {
-    left: 2%;
-    top: 280px;
     height: 30px;
-    width: 96%;
-    position: absolute;
+    width: 90%;
+    
     display: flex;
     justify-content: center;
     align-items: center;
