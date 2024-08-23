@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 14.5
--- Dumped by pg_dump version 14.5
+-- Dumped from database version 16.4
+-- Dumped by pg_dump version 16.4
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -31,6 +31,19 @@ CREATE TABLE public.item_status (
 
 
 ALTER TABLE public.item_status OWNER TO postgres;
+
+--
+-- Name: mood_tracker; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.mood_tracker (
+    username character varying(50) NOT NULL,
+    date date NOT NULL,
+    mood character varying(255)
+);
+
+
+ALTER TABLE public.mood_tracker OWNER TO postgres;
 
 --
 -- Name: todo_items; Type: TABLE; Schema: public; Owner: postgres
@@ -62,7 +75,7 @@ CREATE SEQUENCE public.todo_items_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.todo_items_id_seq OWNER TO postgres;
+ALTER SEQUENCE public.todo_items_id_seq OWNER TO postgres;
 
 --
 -- Name: todo_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -87,6 +100,14 @@ COPY public.item_status (id, date) FROM stdin;
 
 
 --
+-- Data for Name: mood_tracker; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.mood_tracker (username, date, mood) FROM stdin;
+\.
+
+
+--
 -- Data for Name: todo_items; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -96,6 +117,10 @@ COPY public.todo_items (id, title, begindate, enddate, repeat, type, username) F
 11	cry because Lilly is not there	2024-08-17	2024-08-31	weekly	office	fran
 16	miss mönchy until he gets home	2024-08-18	9999-12-31	daily	office	Samuel
 17	miss lilly	2024-08-20	2024-09-06	daily	home	Samuel
+21	dishes	2024-08-19	9999-12-31	weekly	home	NSCFRX
+22	sleep with open eyes	2024-08-20	9999-12-31	daily	office	NSCFRX
+23	vacuum	2024-08-17	2024-08-17	never	home	NSCFRX
+28	dishes	2024-08-20	9999-12-31	daily	home	NSCFRX
 \.
 
 
@@ -103,7 +128,7 @@ COPY public.todo_items (id, title, begindate, enddate, repeat, type, username) F
 -- Name: todo_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.todo_items_id_seq', 17, true);
+SELECT pg_catalog.setval('public.todo_items_id_seq', 28, true);
 
 
 --
