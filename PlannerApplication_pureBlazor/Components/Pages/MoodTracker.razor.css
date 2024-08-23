@@ -1,0 +1,54 @@
+﻿.mood {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    margin-left: 9.5px;
+    margin-right: 9.5px;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid white;
+    color: black;
+}
+
+i {
+    font-size: 40px;
+    color: white;
+    margin: unset;
+    padding: unset;
+}
+
+.mood-tracker {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 7px;
+    height: 250px;
+    position: relative;
+    top: 365px;
+}
+
+.mood-row {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-mood {
+    
+    height: 30px;
+    width: 96%;
+    
+    display: flex;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+
