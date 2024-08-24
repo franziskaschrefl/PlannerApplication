@@ -10,20 +10,20 @@
     </div>
     <div class="buttons-mood">
         <div class="mood-row">
-            <input type="radio" class="btn-check" name="options" id="mood1" autocomplete="off">
+            <input type="radio" class="btn-check" name="options" id="mood1" autocomplete="off" checked="@(mood=="happy")" @onclick="@(() => SetMood("happy"))">
             <label class="btn btn-success mood" for="mood1"><i class="bi bi-emoji-grin"></i></label>
 
-            <input type="radio" class="btn-check" name="options" id="mood2" autocomplete="off">
+            <input type="radio" class="btn-check" name="options" id="mood2" autocomplete="off" checked="@(mood=="productive")"  @onclick="@(() => SetMood("productive"))">
             <label class="btn btn-info mood" for="mood2"><i class="bi bi-emoji-smile"></i></label>
 
-            <input type="radio" class="btn-check" name="options" id="mood3" autocomplete="off">
+            <input type="radio" class="btn-check" name="options" id="mood3" autocomplete="off" checked="@(mood=="sad")" @onclick="@(()=> SetMood("sad"))">
             <label class="btn btn-primary mood" for="mood3"><i class="bi bi-emoji-tear"></i></label>
         </div>
         <div class="mood-row">
-            <input type="radio" class="btn-check" name="options" id="mood4" autocomplete="off">
+            <input type="radio" class="btn-check" name="options" id="mood4" autocomplete="off" checked="@(mood=="grimace")" @onclick="@(()=> SetMood("grimace"))">
             <label class="btn btn-warning mood" for="mood4"><i class="bi bi-emoji-grimace"></i></label>
 
-            <input type="radio" class="btn-check" name="options" id="mood5" autocomplete="off">
+            <input type="radio" class="btn-check" name="options" id="mood5" autocomplete="off" checked="@(mood=="angry")" @onclick="@(()=> SetMood("angry"))">
             <label class="btn btn-danger mood" for="mood5"><i class="bi bi-emoji-angry"></i></label>
         </div>
     </div>
@@ -35,6 +35,7 @@
 
 @code {
     private string mood = "";
+
     public void Reload()
     {
 
@@ -44,10 +45,34 @@
         StateHasChanged();
     }
 
+    private void SetMood(string m)
+    {
+
+        if (m == mood)
+        {
+            DatabaseRequest request = new DatabaseRequest($"DELETE FROM Mood_Tracker WHERE username = '{Environment.UserName}' AND date = '{DTObject.SelectedDate.ToString("yyyy-MM-dd")}';");
+            request.PerformQuery();
+            mood = "";
+            return;
+        }
+        if (string.IsNullOrEmpty(mood))
+        {
+            DatabaseRequest request = new DatabaseRequest($"INSERT INTO Mood_Tracker (username, date, mood) VALUES ('{Environment.UserName}', '{DTObject.SelectedDate.ToString("yyyy-MM-dd")}', '{m}');");
+            request.PerformQuery();
+        }
+        else
+        {
+            DatabaseRequest request = new DatabaseRequest($"UPDATE Mood_Tracker SET mood = '{m}' WHERE username = '{Environment.UserName}' AND date = '{DTObject.SelectedDate.ToString("yyyy-MM-dd")}'; ");
+            request.PerformQuery();
+        }
+        Reload();
+    }
+
     void getValues(DatabaseResponse response)
     {
-        if (response == null)
+        if (response.Rows == 0)
         {
+            mood = "";
             return;
         }
         if (response.Rows == 1)
