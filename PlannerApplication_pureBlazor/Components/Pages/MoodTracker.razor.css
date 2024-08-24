@@ -21,12 +21,10 @@ i {
 .mood-tracker {
     display: flex;
     flex-direction: column;
-    width: 250px;
+    /*width: 250px;*/
     align-items: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    margin-top: 20px;
-    height: 250px;
+    
+    
     
 }
 

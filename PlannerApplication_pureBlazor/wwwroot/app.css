@@ -401,10 +401,13 @@ img {
     left: 0;
     width: 60px;
     transition: 1s;
+    overflow: hidden;
     height: 100vh;
     display: flex;
     align-items: center;
     flex-direction: column;
+    flex-shrink: 0;
+    gap: 35px;
     
 }
 
@@ -482,8 +485,8 @@ img {
     align-items: center;
 
     width: 240px !important;
-    height: 245px;
-    background-color: #51087E;
+    
+    
     color: white;
 }
 
@@ -539,7 +542,7 @@ img {
 .progress-style {
     
     height: 30px;
-    width: 96%;
+    width: 90%;
     
 }
 
@@ -552,7 +555,7 @@ img {
 
 .prog {
     height: 30px;
-    width: 90%;
+    width: 96%;
     
     display: flex;
     justify-content: center;
@@ -560,5 +563,13 @@ img {
     color: white;
     font-size: 20px;
 
+}
+
+.progb {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
