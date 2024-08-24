@@ -1,0 +1,43 @@
+﻿@page "/moodoverview"
+@rendermode InteractiveServer
+@inject DataTransferObject DTObject
+
+
+<div class="mood-header">
+	<h1>Overview for @FirstOfMonth.Year</h1>
+</div>
+<button type="button" class="btn btn-dark"><a href="\todo">Back to ToDo</a></button>
+
+<div class="year">
+	<div class="outline-year">
+		@for (int i = 0; i<3; i++)
+		{
+		
+				<div class="month-row">
+					@for (int j = 0; j<4; j++)
+					{
+			
+						DateTime date = new DateTime(DateTime.Now.Year, counter+1, 1);
+						<Month FirstOfMonth="date"></Month>
+						counter++;
+					}
+		
+				</div>
+		
+		
+	
+		}
+	</div>
+</div>
+
+
+
+@code {
+	DateTime FirstOfMonth;
+	int counter;
+	protected override void OnInitialized()
+	{
+		//FirstOfMonth = new DateTime(DTObject.SelectedDate.Year, DTObject.SelectedDate.Month, 1);
+		FirstOfMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+	}
+}

@@ -1,0 +1,137 @@
+﻿@using PlannerCSharp.DataAccessLayer
+
+@rendermode InteractiveServer
+
+
+
+
+<div class="calendar-outline">
+    <div class="calendar-header">
+        
+        <h2>@monthName</h2>
+        
+    </div>
+    <section class="table-form">
+
+        @for (int i = 0; i < numDummyColumn; i++)
+        {
+            <div></div>
+        }
+        @for (int i = 1; i <= monthEnd.Day; i++)
+        {
+            int day = i;
+            string mood = GetMood(day);
+            
+            if (mood == "grimace")
+            {
+                <div class="div-form div-mood grimace"><p>@i</p></div>
+            }
+            if (mood == "angry")
+			{
+				<div class="div-form div-mood angry"><p>@i</p></div>
+			}
+            if (mood == "sad") {
+				<div class="div-form div-mood sad"><p>@i</p></div>
+			}
+
+            if (mood == "productive")
+			{
+				<div class="div-form div-mood productive"><p>@i</p></div>
+			}
+			if (mood == "happy")
+			{
+				<div class="div-form div-mood happy"><p>@i</p></div>
+			}
+			if (mood == "")
+			{
+				<div class="div-form"><p>@i</p></div>
+			}
+            
+            
+
+        }
+    </section>
+</div>
+
+@code {
+
+    [Parameter]
+    public DateTime FirstOfMonth { get; set; }
+
+    DateTime monthEnd;
+    int numDummyColumn = 0;
+    private string monthName = "";
+    
+    
+    protected override void OnInitialized()
+
+    {
+        
+        CreateMonth();
+        
+        
+    }
+
+    string GetMood(int day)
+	{
+        DateTime date = new DateTime(FirstOfMonth.Year, FirstOfMonth.Month, day);
+        DatabaseRequest request = new DatabaseRequest($"SELECT * FROM Mood_Tracker WHERE username = '{Environment.UserName}' AND date = '{date.ToString("yyyy-MM-dd")}'; ");
+        return getValues(request.PerformQuery());
+		
+	}
+
+    string getValues(DatabaseResponse response)
+    {
+        if (response.Rows == 0)
+        {
+            
+            return "";
+        }
+        
+        return response["mood"][0];
+        
+        
+    }
+    
+
+    void CreateMonth()
+    {
+
+        
+
+
+        
+        monthEnd = FirstOfMonth.AddMonths(1).AddDays(-1);
+        monthName = FirstOfMonth.Month switch
+        {
+            1 => "January",
+            2 => "Febuary",
+            3 => "March",
+            4 => "April",
+            5 => "May",
+            6 => "June",
+            7 => "July",
+            8 => "August",
+            9 => "September",
+            10 => "October",
+            11 => "November",
+            12 => "December",
+            _ => ""
+        };
+        
+        numDummyColumn = (int)FirstOfMonth.DayOfWeek;
+        if (numDummyColumn == 0)
+        {
+            numDummyColumn = 6;
+        }
+        else
+        {
+            numDummyColumn--;
+        }
+
+
+    }
+
+
+}
+

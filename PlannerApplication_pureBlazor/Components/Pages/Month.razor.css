@@ -1,0 +1,42 @@
+﻿.calendar-outline {
+    background-color: #dfb2fa;
+    border: 0.5px solid black;
+    padding-bottom: 10px;
+    color: black;
+}
+.calendar-header h2 {
+    color: black !important;
+}
+
+.div-mood {
+    border-radius: 50%;
+    width: 23px;
+    height: 23px;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+}
+
+.angry {
+    background-color: #dc3545;
+    
+}
+
+.sad {
+    background-color: #0d6efd;
+}
+
+.happy {
+    background-color: #198754;
+}
+
+.productive {
+    background-color: #0dcaf0;
+    
+}
+
+.grimace {
+    background-color: #ffc107;
+}
