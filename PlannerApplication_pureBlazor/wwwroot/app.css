@@ -507,6 +507,7 @@ img {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
 }
 
 .calendar-header button {
@@ -548,8 +549,19 @@ img {
 .progress-style {
     
     height: 30px;
+    position: relative;
     width: 90%;
     
+}
+
+.percent {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 .change-bar {

@@ -4,7 +4,7 @@
 
 
 <div class="mood-header">
-	<h1>Overview for @FirstOfMonth.Year</h1>
+	<h1>Overview for @DTObject.SelectedDate.Year</h1>
 </div>
 <button type="button" class="btn btn-dark"><a href="\todo">Back to ToDo</a></button>
 
@@ -17,7 +17,7 @@
 					@for (int j = 0; j<4; j++)
 					{
 			
-						DateTime date = new DateTime(DateTime.Now.Year, counter+1, 1);
+						DateTime date = new DateTime(DTObject.SelectedDate.Year, counter+1, 1);
 						<Month FirstOfMonth="date"></Month>
 						counter++;
 					}
@@ -33,11 +33,7 @@
 
 
 @code {
-	DateTime FirstOfMonth;
+	
 	int counter;
-	protected override void OnInitialized()
-	{
-		//FirstOfMonth = new DateTime(DTObject.SelectedDate.Year, DTObject.SelectedDate.Month, 1);
-		FirstOfMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-	}
+	
 }

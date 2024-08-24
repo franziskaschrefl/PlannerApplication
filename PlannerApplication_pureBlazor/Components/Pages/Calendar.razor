@@ -47,15 +47,18 @@
     protected override void OnInitialized()
 
     {
-        monthsAway = DateTime.Now.Month;
+        monthsAway = DTObject.SelectedDate.Month;
         CreateMonth();
         DTObject.OnDateChange += Reload;
     }
 
     void changeDate(int day)
-	{
-		DTObject.SelectedDate = new DateOnly(DTObject.SelectedDate.Year + yearsAway, monthsAway, day);
-		StateHasChanged();
+    {
+        DTObject.SelectedDate = new DateOnly(DTObject.SelectedDate.Year + yearsAway, monthsAway, day);
+        yearsAway = 0;
+        yearName = DTObject.SelectedDate.Year;
+        CreateMonth();
+        StateHasChanged();
 	}
 
 
