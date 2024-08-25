@@ -591,3 +591,19 @@ img {
     flex-direction: column;
 }
 
+.btn-dark:hover {
+    background-color: #dfb2fa;
+    color: black;
+    text-decoration: none
+}
+
+
+
+
+
+.btn-dark {
+    background-color: #51087E;
+    border: 1px solid #dfb2fa;
+    color: #dfb2fa;
+    text-decoration: none;
+}   
