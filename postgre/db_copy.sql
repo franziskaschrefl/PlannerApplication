@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 16.4
--- Dumped by pg_dump version 16.4
+-- Dumped from database version 14.5
+-- Dumped by pg_dump version 14.5
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -75,7 +75,7 @@ CREATE SEQUENCE public.todo_items_id_seq
     CACHE 1;
 
 
-ALTER SEQUENCE public.todo_items_id_seq OWNER TO postgres;
+ALTER TABLE public.todo_items_id_seq OWNER TO postgres;
 
 --
 -- Name: todo_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -104,6 +104,12 @@ COPY public.item_status (id, date) FROM stdin;
 --
 
 COPY public.mood_tracker (username, date, mood) FROM stdin;
+Samuel	2024-08-25	angry
+Samuel	2024-08-26	happy
+Samuel	2024-08-23	sad
+Samuel	2024-08-24	productive
+Samuel	2024-09-03	angry
+Samuel	2024-09-04	grimace
 \.
 
 
@@ -115,12 +121,8 @@ COPY public.todo_items (id, title, begindate, enddate, repeat, type, username) F
 7	go for a coffee as break from boredom	2024-08-15	2024-08-31	monthly	home	fran
 8	cry	2024-08-15	2024-08-15	weekly	office	fran
 11	cry because Lilly is not there	2024-08-17	2024-08-31	weekly	office	fran
-16	miss mönchy until he gets home	2024-08-18	9999-12-31	daily	office	Samuel
-17	miss lilly	2024-08-20	2024-09-06	daily	home	Samuel
-21	dishes	2024-08-19	9999-12-31	weekly	home	NSCFRX
-22	sleep with open eyes	2024-08-20	9999-12-31	daily	office	NSCFRX
-23	vacuum	2024-08-17	2024-08-17	never	home	NSCFRX
-28	dishes	2024-08-20	9999-12-31	daily	home	NSCFRX
+17	miss lilly	2024-08-20	2024-09-06	daily	office	Samuel
+19	miss mönchy until he gets home	2024-08-21	9999-12-31	daily	office	Samuel
 \.
 
 
