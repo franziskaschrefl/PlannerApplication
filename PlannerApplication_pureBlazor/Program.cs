@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Hosting;
 using PlannerApplication_pureBlazor.Components;
 using PlannerApplication_pureBlazor.Components.Pages;
 
@@ -24,5 +25,9 @@ app.UseAntiforgery();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
-
+bool dbStarted = PlannerCSharp.DataAccessLayer.Database.StartDB();
+Console.WriteLine(dbStarted ? "Database started successfully" : "Database failed to start");
+var lifetime = app.Services.GetRequiredService<IHostApplicationLifetime>();
+lifetime.ApplicationStopping.Register(() => PlannerCSharp.DataAccessLayer.Database.StopDB());
 app.Run();
+//netstat -an | findstr 5432
