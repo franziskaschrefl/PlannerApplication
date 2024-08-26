@@ -10,7 +10,6 @@
   <ItemGroup>
     <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj" />
   </ItemGroup>
-
 	<ItemGroup>
 		<Watch Include="**\*.razor" />
 	</ItemGroup>

@@ -74,7 +74,7 @@ namespace PlannerCSharp.DataAccessLayer
             bool ret = true;
             try
             {
-				var processInfo = new ProcessStartInfo("C:\\Users\\Samuel\\Documents\\Personal_Projects\\Franziska\\PlannerApplication\\postgre\\start_db.cmd");
+				var processInfo = new ProcessStartInfo("postgre\\start_db.cmd");
 				processInfo.CreateNoWindow = true;
 				processInfo.UseShellExecute = false;
 				processInfo.RedirectStandardError = false;
