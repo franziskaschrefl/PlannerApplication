@@ -9,7 +9,14 @@
         @TaskItem.BeginDate
     </td>
     <td>
-        @TaskItem.EndDate
+        @if (TaskItem.EndDate == DateOnly.MaxValue)
+        {
+            <span>---</span>
+        }else
+        {
+            @TaskItem.EndDate
+        }
+        
     </td>
     <td>
         @TaskItem.Repeat

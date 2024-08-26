@@ -6,6 +6,7 @@
     height: 100%;
     width: 100%;
     background-color: #b4ecb4;
+    
 }
 .month-row {
     display: flex;
@@ -25,12 +26,14 @@
 
 .outline-year {
     border: 0.5px solid black;
+    cursor: default;
 }
 
 .btn-dark {
     position: absolute;
     left: 5px;
     top: 5px;
+    
 }
 
 .mood {
@@ -44,6 +47,7 @@
     align-items: center;
     border: 2px solid white;
     color: black;
+    cursor: default;
 }
 
 i {

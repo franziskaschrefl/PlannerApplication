@@ -13,6 +13,7 @@
     flex-direction: column !important;
     height: 100vh;
     width: 100%;
+    overflow: hidden;
 }
 
 main {
@@ -22,6 +23,7 @@ main {
     padding-bottom: 40px;
     height: 100vh;
     width: 100%;
+    overflow: auto
 }
 
 a, .btn-link {
@@ -372,7 +374,8 @@ img {
 .click-anywhere{
     font-size: 30px;
     transform: translateY(+500%);
-    color: gray;
+    color: white;
+    opacity: 50%;
     text-shadow: unset !important;
 
 }
@@ -411,7 +414,8 @@ img {
     align-items: center;
     flex-direction: column;
     flex-shrink: 0;
-    gap: 35px;
+    
+    gap: 7%;
     
 }
 
@@ -427,7 +431,7 @@ img {
     color: white;
     font-size: 30px;
     background-color: #51087E;
-    right: 10px;
+    right: 15px;
     
 }
 
@@ -606,4 +610,19 @@ img {
     border: 1px solid #dfb2fa;
     color: #dfb2fa;
     text-decoration: none;
-}   
+}
+
+.button-outline {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    
+}
+
+.button-outline a {
+    width: 85%;
+    white-space: nowrap;
+}

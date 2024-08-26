@@ -22,6 +22,10 @@
     
 }
 
+.div-form {
+    cursor: default;
+}
+
 .div-mood {
     border-radius: 50%;
     width: 23px;

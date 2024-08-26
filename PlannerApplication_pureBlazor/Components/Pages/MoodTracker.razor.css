@@ -7,7 +7,7 @@
     margin-right: 9.5px;
     justify-content: center;
     align-items: center;
-    border: 2px solid white;
+    
     color: black;
 }
 
@@ -26,6 +26,11 @@ i {
     
     
     
+}
+
+input:not(:checked) + .mood {
+    background-color: transparent;
+    border:unset;
 }
 
 .mood-row {

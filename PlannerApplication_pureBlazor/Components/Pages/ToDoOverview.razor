@@ -14,11 +14,67 @@
     </div>
     <table>
     <tr>
-        <th>Type</th>
-        <th>Begin Date</th>
-        <th>End Date</th>
-        <th>Repeat</th>
-        <th>Title</th>
+            <th @onclick="@(() => SortBy("type"))">Type
+                @if (filter.Contains("type ASC"))
+				{
+                    <i class="bi bi-chevron-up"></i>
+				}
+				else if (filter.Contains("type DESC"))
+				{
+					<i class="bi bi-chevron-down"></i>
+				} else {
+                    <i class="bi bi-dash-lg"></i>
+				}
+            </th>
+            <th @onclick="@(() => SortBy("begindate"))">Begin Date
+                
+                @if (filter.Contains("begindate ASC")) {
+					<i class="bi bi-chevron-up"></i>
+				}
+				else if (filter.Contains("begindate DESC"))
+				{
+					<i class="bi bi-chevron-down"></i>
+				}
+				else
+				{
+					<i class="bi bi-dash-lg"></i>
+                }
+            </th>
+            
+            <th @onclick="@(() => SortBy("enddate"))">End Date
+                @if (filter.Contains("enddate ASC")){
+
+					<i class="bi bi-chevron-up"></i>
+				}
+				else if (filter.Contains("enddate DESC"))
+				{
+					<i class="bi bi-chevron-down"></i>
+				}
+				else
+				{
+					<i class="bi bi-dash-lg"></i>
+                }
+            </th>
+            <th @onclick="@(() => SortBy("repeat"))">Repeat
+
+                @if (filter.Contains("repeat ASC")){
+                    <i class="bi bi-chevron-up"></i>
+                } else if (filter.Contains("repeat DESC")){
+                    <i class="bi bi-chevron-down"></i>
+				} else {
+                    <i class="bi bi-dash-lg"></i>
+                }
+            </th>
+            
+            <th @onclick="@(() => SortBy("title"))">Title
+                @if (filter.Contains("title ASC")){
+					<i class="bi bi-chevron-up"></i>
+				} else if (filter.Contains("title DESC")){
+					<i class="bi bi-chevron-down"></i>
+                } else {
+                    <i class="bi bi-dash-lg"></i>
+                }
+            </th>
         <th>Edit/Delete</th>
     </tr>
     @foreach (var todo in todos)
@@ -33,16 +89,57 @@
 @code {
     private EditTaskPopUp editTaskWindow;
     private List<ToDoTask> todos = new List<ToDoTask>();
+    private string selectpart = "SELECT * FROM todo_items";
+    private string orderby = " ORDER BY ";
+    private string filter = "";
+    private int filterProperties = 0;
+    string query = "";
     protected override void OnInitialized()
     {
+        Reload();
+    }
+
+    private void SortBy(string column)
+    {
+
+        if (filter.Contains(column + " ASC")){
+
+            filter = filter.Replace(column + " ASC", column + " DESC");
+        }
+        else if (filter.Contains(column + " DESC")){
+            if (filterProperties == 1)
+            {
+                filter = "";
+                filterProperties = 0;
+            } else {
+                filter = filter.Replace(column + " DESC, ", "");
+            }
+
+        }
+        else
+        {
+            filter += column + " ASC, ";
+            filterProperties++;
+        }
+
+
         Reload();
     }
 
     public void Reload()
     {
         todos.Clear();
-
-        DatabaseRequest request = new DatabaseRequest("SELECT * FROM todo_items;");
+        
+        if (filter == "")
+        {
+            query = selectpart + ";";
+		}
+		else
+		{
+			query = selectpart + orderby + filter.Substring(0,filter.Length-2) +";";
+        }
+        
+        DatabaseRequest request = new DatabaseRequest(query);
         getRelevantToDos(request.PerformQuery());
         StateHasChanged();
     }
