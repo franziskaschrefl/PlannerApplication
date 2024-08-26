@@ -1,9 +1,70 @@
 ﻿@page "/todo-overview"
+@using PlannerCSharp.DataAccessLayer
 @rendermode InteractiveServer
 @inject DataTransferObject DTObject
 
 <a class="btn btn-dark" href="\todo">Back to ToDo</a>
+<EditTaskPopUp @ref=editTaskWindow OnSave="Reload">
+
+</EditTaskPopUp>
+
+<div class="outline-todo-overview">
+    <div class="mood-header">
+        <h1>ToDo Task Overview</h1>
+    </div>
+    <table>
+    <tr>
+        <th>Type</th>
+        <th>Begin Date</th>
+        <th>End Date</th>
+        <th>Repeat</th>
+        <th>Title</th>
+        <th>Edit/Delete</th>
+    </tr>
+    @foreach (var todo in todos)
+    {
+        <ToDoItemOverview TaskItem="@todo" editTaskWindow="@editTaskWindow" OnDelete="Reload" />
+    }
+</table>
+
+</div>
+
 
 @code {
+    private EditTaskPopUp editTaskWindow;
+    private List<ToDoTask> todos = new List<ToDoTask>();
+    protected override void OnInitialized()
+    {
+        Reload();
+    }
 
+    public void Reload()
+    {
+        todos.Clear();
+
+        DatabaseRequest request = new DatabaseRequest("SELECT * FROM todo_items;");
+        getRelevantToDos(request.PerformQuery());
+        StateHasChanged();
+    }
+
+    private void getRelevantToDos(DatabaseResponse response)
+    {
+
+        for (int i = 0; i < response.Rows; i++)
+        {
+            ToDoTask t = new ToDoTask();
+            t.Title = response["title"][i];
+            t.EndDate = DateOnly.Parse(response["enddate"][i]);
+            t.BeginDate = DateOnly.Parse(response["begindate"][i]);
+            t.Type = response["type"][i];
+            t.Id = int.Parse(response["id"][i]);
+            t.Repeat = response["repeat"][i];
+            t.Username = response["username"][i];
+
+            
+            todos.Add(t);
+            
+
+        }
+    }
 }
