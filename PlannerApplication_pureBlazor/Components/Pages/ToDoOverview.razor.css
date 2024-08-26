@@ -1,0 +1,17 @@
+﻿.btn-dark:hover {
+    background-color: lightblue;
+    color: black;
+    text-decoration: none;
+    border: 1px solid #000072;
+}
+
+
+
+
+
+.btn-dark {
+    background-color: #000072;
+    border: 1px solid lightblue;
+    color: lightblue;
+    text-decoration: none;
+}
