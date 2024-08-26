@@ -104,12 +104,6 @@ COPY public.item_status (id, date) FROM stdin;
 --
 
 COPY public.mood_tracker (username, date, mood) FROM stdin;
-Samuel	2024-08-25	angry
-Samuel	2024-08-26	happy
-Samuel	2024-08-23	sad
-Samuel	2024-08-24	productive
-Samuel	2024-09-03	angry
-Samuel	2024-09-04	grimace
 \.
 
 
@@ -118,11 +112,6 @@ Samuel	2024-09-04	grimace
 --
 
 COPY public.todo_items (id, title, begindate, enddate, repeat, type, username) FROM stdin;
-7	go for a coffee as break from boredom	2024-08-15	2024-08-31	monthly	home	fran
-8	cry	2024-08-15	2024-08-15	weekly	office	fran
-11	cry because Lilly is not there	2024-08-17	2024-08-31	weekly	office	fran
-17	miss lilly	2024-08-20	2024-09-06	daily	office	Samuel
-19	miss mönchy until he gets home	2024-08-21	9999-12-31	daily	office	Samuel
 \.
 
 
@@ -130,7 +119,7 @@ COPY public.todo_items (id, title, begindate, enddate, repeat, type, username) F
 -- Name: todo_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.todo_items_id_seq', 28, true);
+SELECT pg_catalog.setval('public.todo_items_id_seq', 46, true);
 
 
 --
