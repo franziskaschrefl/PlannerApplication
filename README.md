@@ -8,6 +8,18 @@ One main feature of this screen is the personalized welcome animation. A mouse c
 
 ![Landing_page](https://github.com/user-attachments/assets/60d7b4a9-c554-497d-beb2-3649d6752c98)
 
+### Main Page
+
+![Main_Screen](https://github.com/user-attachments/assets/190fc84c-4928-4758-9ad7-524ec5df19de)
+
+### Mood Overview
+
+![Mood_Overview](https://github.com/user-attachments/assets/7afd762b-409c-49e3-ae92-f2ac4734f38f)
+
+### ToDo Task Overview
+
+![ToDo_Overview](https://github.com/user-attachments/assets/233e198c-deb0-4e0b-9870-df7390211c8c)
+
 
 ## Motivation
 
