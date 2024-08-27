@@ -6,7 +6,7 @@
 The Landing Page gives the user an aesthetically pleasing entrance into the application, preparing the user for the use of the application. 
 One main feature of this screen is a personalized welcome animation. A mouse click leads the user to the main page of the application.
 
-![Landing_page](https://github.com/user-attachments/assets/60d7b4a9-c554-497d-beb2-3649d6752c98)
+![Landing_page](./PlannerApplication_pureBlazor/wwwroot/img/Landing_page.png)
 
 ### Main Page
 
@@ -27,19 +27,19 @@ The sidebar can be shown by clicking on the three lines in the top left corner. 
 a visual indicator on the calender also allows to see where in the month the selected days and today lie. 
 The progressbar below the calendar visualizes how much of the year has passed. Moreover, the mood tracker feature allows the user to log today's mood. Lastly, there are two buttons allowing navigation to both the Mood Overview and the ToDo Task Overview
 
-![Main_Screen](https://github.com/user-attachments/assets/190fc84c-4928-4758-9ad7-524ec5df19de)
+![Main_Screen](./PlannerApplication_pureBlazor/wwwroot/img/Main_Screen.png)
 
 ### Mood Overview
 
 On the Mood Overview Screen it is possible to get a visualization of the mood logs which occured in the year, which the selected day belong to.
 
-![Mood_Overview](https://github.com/user-attachments/assets/7afd762b-409c-49e3-ae92-f2ac4734f38f)
+![Mood_Overview](./PlannerApplication_pureBlazor/wwwroot/img/Mood_Overview.png)
 
 ### ToDo Task Overview
 
 The ToDo Task Overview allows users to see all todo tasks which are currently in the system and to sort them by clicking on the table headings. For instance a click on "Type" sorts the table asceding by type, a second click descending and a third undoes the sorting by this column. Sorting by multiple columns is possible. Moreover, it is possible to delete or edit any displayed task.
 
-![ToDo_Overview](https://github.com/user-attachments/assets/233e198c-deb0-4e0b-9870-df7390211c8c)
+![ToDo_Overview](./PlannerApplication_pureBlazor/wwwroot/img/ToDo_Overview.png)
 
 
 ## Motivation
