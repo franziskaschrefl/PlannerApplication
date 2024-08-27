@@ -4,7 +4,10 @@
 ### Landing Page
 
 The Landing Page gives the user an aesthetically pleasing entrance into the application, preparing the user on the use of the application. 
-One main feature of this screen is the personalized welcome animation. A mouse click leads the user to the main page of the application
+One main feature of this screen is the personalized welcome animation. A mouse click leads the user to the main page of the application.
+
+![Landing_page](https://github.com/user-attachments/assets/60d7b4a9-c554-497d-beb2-3649d6752c98)
+
 
 ## Motivation
 
