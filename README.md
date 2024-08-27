@@ -14,7 +14,7 @@ The main page consists of:
 
 #### Navbar
 
-The Navbar shows the next and previous 3 days, clicking enables the user to switch between days accessing the todo tasks for the selected day.
+The Navbar shows the next and previous 3 days, clicking enables the user to switch between days accessing the todo tasks for the selected day. Only tasks created by this user can be accessed.
 
 #### Main Screen
 In the main portion of the screen is split into office and home tasks. The user can see the tasks that have been added for the selected day. A checkbox allows the user to mark tasks as done. 
