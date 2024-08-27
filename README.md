@@ -10,13 +10,33 @@ One main feature of this screen is the personalized welcome animation. A mouse c
 
 ### Main Page
 
+The main page consists of:
+
+#### Navbar
+
+The Navbar shows the next and previous 3 days, clicking enables the user to switch between days accessing the todo tasks for the selected day.
+
+#### Main Screen
+In the main portion of the screen is split into office and home tasks. The user can see the tasks that have been added for the selected day. A checkbox allows the user to mark tasks as done. 
+The buttons on the right side of the screen allow editing and deleting of tasks. In the bottom right corner there is a green button,
+which allows the user to add a new task to the system in order to add new tasks it is necessary to specify a title, begin date, whether the tasks is repeating, if so when it should end and whether it is an office of home job.
+
+#### Sidebar
+The sidebar can be shown by clicking on the three lines in the top left corner. The sidebar is both for nativation and for visualisation. For instance, the carlendar gives the user the possibility to jump more freely between days and 
+a visual indicator on the calender also allows to see where in the month the selected days and today lie. 
+The progressbar below the calendar visualizes how much of the year has passed. Moreover, the mood tracker feature allows the user to log today mood. Lastly, there are two buttons allowing navigation to both the Mood Overview and the ToDo Task Overview
+
 ![Main_Screen](https://github.com/user-attachments/assets/190fc84c-4928-4758-9ad7-524ec5df19de)
 
 ### Mood Overview
 
+On the Mood Overview Screen it is possible to get a visualization of the mood logs which occured in the year, which the selected day belong to.
+
 ![Mood_Overview](https://github.com/user-attachments/assets/7afd762b-409c-49e3-ae92-f2ac4734f38f)
 
 ### ToDo Task Overview
+
+The ToDo Task Overview allows users to see all todo tasks which are currently in the system and to sort them by clicking on the table heading. For instance a click on Type sorts the table asceding by type, a second click descending and a third undoes the sorting by this column. Sorting by multiple columns is possible. Moreover, it is possible to delete or edit any displayed task.
 
 ![ToDo_Overview](https://github.com/user-attachments/assets/233e198c-deb0-4e0b-9870-df7390211c8c)
 
